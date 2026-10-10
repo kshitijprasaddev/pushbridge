@@ -1,0 +1,42 @@
+{
+  "source": "user-provided personal recording",
+  "video": "IMG_5670.mov",
+  "raw_sha256": "0b0f66a24835a7500557e0bcb1110efddefece0da6a6b3cc75df6bda160c76e8",
+  "tracking": {
+    "sampled_frames": 146,
+    "object_detections": 146,
+    "finger_detections": 120,
+    "target_detections": 146,
+    "continuous_segment_frames": 120,
+    "continuous_segment_s": [
+      2.6002974828375285,
+      14.501659038901602
+    ],
+    "normalisation": "Observed drawn-target radius maps to a chosen 20 mm simulator radius. This does not measure real physical distances.",
+    "target_radius_px_range": [
+      221.63893567322472,
+      242.50958663871188
+    ]
+  },
+  "controller": "Recorded object waypoints with geometric feedback and aligned recorded finger-side proposals.",
+  "policy_training": false,
+  "world_model_training": false,
+  "simulation_observation": "Ground-truth MuJoCo object/tool positions",
+  "waypoints": 26,
+  "simulation_control_steps": 68,
+  "recorded_finger_proposal_steps": 15,
+  "recorded_path_completed": true,
+  "final_distance_to_retargeted_endpoint_mm": 5.480006346941768,
+  "final_distance_to_sim_goal_mm": 3.3230598061389975,
+  "within_sim_goal_radius_20mm": true,
+  "mean_sim_to_reference_path_distance_mm": 2.1894559196463828,
+  "reference_path_to_sim_p90_distance_mm": 4.847439198661753,
+  "limitations": [
+    "Single clip; no success-rate or generalisation claim.",
+    "Circle fits compensate translation and approximate scale changes, not full camera perspective/rotation.",
+    "20 mm goal radius is chosen for embodiment normalisation, not measured in the recording.",
+    "Path errors are measured against the normalised reference, not real-world physical distances.",
+    "Comparison video aligns path progress; source and simulation timing are different.",
+    "The follower and contact rules are hand-coded. This is not a trained VLA or learned dynamics policy."
+  ]
+}

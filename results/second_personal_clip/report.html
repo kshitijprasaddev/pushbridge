@@ -1,0 +1,10 @@
+<!doctype html><html><meta charset="utf-8"><title>PushBridge personal-video demonstration</title>
+<style>body{font:17px system-ui;background:#101a27;color:#eee;max-width:1150px;margin:36px auto;padding:0 24px}.source{background:#29354b;border-left:5px solid #79ceb1;padding:16px}video{width:100%;border-radius:8px;margin:15px 0}a{color:#9fdbda}.metrics{display:flex;gap:35px;flex-wrap:wrap;margin:24px 0}.metrics b{display:block;font-size:30px}p{line-height:1.5}</style>
+<h1>Personal video → simulated robot</h1><p class="source">Source: IMG_5670.mov, supplied by the user. Recorded motion drives a physical MuJoCo pushing arm.</p>
+<video controls muted preload="metadata" poster="demo_preview.jpg" src="comparison.mp4"></video>
+<p>Left: the supplied recording. Right: the robot following its retargeted object path. The views align path progress; recording and simulation clocks differ.</p>
+<div class="metrics"><div><b>26</b>recorded waypoints</div><div><b>68</b>robot control steps</div><div><b>3.3 mm</b>final simulated goal distance</div></div>
+<p>The drawn black circle anchors position and scale. Its image radius maps to a chosen 20 mm simulator radius; real physical dimensions were not measured. A hand-coded controller follows the recorded waypoints and uses the demonstrated finger side for aligned contact proposals. This run did not train a policy or world model.</p>
+<img src="trajectory_plot.png" alt="Recorded and simulated object paths" style="width:100%;max-width:800px">
+<p>This is one demonstration, with ground-truth simulator observations. It establishes a working data-to-robot connection; it does not establish learned-policy performance, a success rate or generalisation.</p>
+<p><a href="retarget_metrics.json">Full metrics and limitations</a> · <a href="tracking_preview.mp4">Marker and target-circle tracking</a> · <a href="robot_demo.mp4">Robot video</a></p></html>

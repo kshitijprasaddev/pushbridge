@@ -1,0 +1,55 @@
+{
+  "algorithm": "SAC",
+  "implementation": "Stable Baselines3 2.9.0",
+  "seed": 0,
+  "variant": "personal-demo actor initialization + SAC",
+  "sim_interaction_steps": 40000,
+  "terminal_hold_control_steps": 6240,
+  "total_training_control_steps": 46240,
+  "training_seconds_including_validation": 75.34202169800028,
+  "reward": "Delta of (-100 * object-goal distance - 10 * tool-to-behind-object distance) - 0.01; +10 stable success; -5 outside workspace.",
+  "observation": "4 floats: (tool-object)/0.05 and (goal-object)/0.20. MuJoCo ground truth; no images/language/velocities.",
+  "action": "Two [-1,1] values scaled by 8 mm and norm-clipped; joint servos realize each move over 0.1 s.",
+  "episode_horizon": 120,
+  "success": "Within 18 mm after a one-second zero-action hold.",
+  "training_distribution": "Same ranges of starts, goals and friction as benchmark; separate random sequences.",
+  "parameters": {
+    "learning_rate": 0.0003,
+    "buffer_size": 100000,
+    "learning_starts": 1000,
+    "batch_size": 128,
+    "tau": 0.005,
+    "gamma": 0.99,
+    "train_freq": 4,
+    "gradient_steps": 1,
+    "ent_coef": "auto_0.1"
+  },
+  "network": [
+    64,
+    64
+  ],
+  "initial_log_std": -1.0,
+  "demo_initialization": {
+    "training_clip_ids": [
+      "Video",
+      "Video_2",
+      "Video_3"
+    ],
+    "base_labels": 123,
+    "augmented_labels": 1968,
+    "manifest_sha256": "0f1d43f1b1865d3670821b124b033380151b4a6278e9705dcbd4ce83679304bc",
+    "personal_source": "personal",
+    "source_coordinate_units": "normalised simulator metres",
+    "updates": 500,
+    "batch_size": 128,
+    "learning_rate": 0.001,
+    "last_50_updates_action_mse": 0.08719171553850175
+  },
+  "model_selection": "Final checkpoint after the fixed simulation budget, no test selection.",
+  "limitations": [
+    "State-based RL, not a VLA.",
+    "Dense hand-designed geometric reward.",
+    "Demo labels have human-to-robot contact and tracking differences.",
+    "Imitation initialization changes actor means only; critics and replay start from simulator data."
+  ]
+}

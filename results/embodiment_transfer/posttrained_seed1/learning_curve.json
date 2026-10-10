@@ -1,0 +1,46 @@
+{
+  "seed": 7131,
+  "rows": [
+    {
+      "adaptation_steps": 0,
+      "terminal_hold_control_steps": 0,
+      "elapsed_seconds_including_validation": 0.021232863999102847,
+      "successes": 10,
+      "episodes": 10,
+      "mean_final_distance_mm": 16.1737195583676
+    },
+    {
+      "adaptation_steps": 5000,
+      "terminal_hold_control_steps": 940,
+      "elapsed_seconds_including_validation": 9.844856775000153,
+      "successes": 10,
+      "episodes": 10,
+      "mean_final_distance_mm": 16.935440365979385
+    },
+    {
+      "adaptation_steps": 10000,
+      "terminal_hold_control_steps": 2270,
+      "elapsed_seconds_including_validation": 21.2672612639999,
+      "successes": 10,
+      "episodes": 10,
+      "mean_final_distance_mm": 16.201390643134367
+    },
+    {
+      "adaptation_steps": 15000,
+      "terminal_hold_control_steps": 3610,
+      "elapsed_seconds_including_validation": 32.404999234999195,
+      "successes": 10,
+      "episodes": 10,
+      "mean_final_distance_mm": 16.59520577072263
+    },
+    {
+      "adaptation_steps": 20000,
+      "terminal_hold_control_steps": 5000,
+      "elapsed_seconds_including_validation": 42.501708260999294,
+      "successes": 10,
+      "episodes": 10,
+      "mean_final_distance_mm": 16.062348794542977
+    }
+  ],
+  "model_selection": "Final fixed-budget checkpoint"
+}

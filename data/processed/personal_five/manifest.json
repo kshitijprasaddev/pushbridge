@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "source": "personal",
+  "collector": "User-supplied home recordings",
+  "provenance_note": "User/operator declares these recordings personal; software cannot verify authorship.",
+  "calibration": {
+    "method": "black target-circle relative coordinates",
+    "sim_goal_radius_m": 0.02,
+    "metric_scale_measured": false,
+    "sample_hz": 10,
+    "time_note": "Nominal 10 Hz dataset grid; original selected frame times retained in video_time_s."
+  },
+  "episodes": [
+    {
+      "id": "IMG_5670",
+      "file": "000.npz",
+      "raw_name": "IMG_5670.mov",
+      "raw_sha256": "a4d80335ab1ccedeb93374161b419d87123be77db0786cd482a6127850e3c354",
+      "valid_fraction": 1.0,
+      "transitions": 111,
+      "moving_transitions": 63,
+      "tracking": {
+        "sampled_frames": 146,
+        "object_detections": 146,
+        "finger_detections": 120,
+        "target_detections": 138,
+        "continuous_segment_frames": 112,
+        "continuous_segment_s": [
+          2.6002974828375285,
+          13.701567505720824
+        ],
+        "normalisation": "Observed drawn-target radius maps to a chosen 20 mm simulator radius. This does not measure real physical distances.",
+        "target_radius_px_range": [
+          222.80692694900614,
+          243.7448983728411
+        ]
+      },
+      "coordinate_units": "normalised simulator metres, not measured real metres",
+      "original_raw_sha256": "0b0f66a24835a7500557e0bcb1110efddefece0da6a6b3cc75df6bda160c76e8",
+      "publication_copy": {
+        "video_packets": "Copied without video re-encoding",
+        "decoded_video_sha256": "20ab5196d1d04bd23449f0c657b64d47411f6ef2f49a19e7d9d22550b94c708b",
+        "original_decoded_video_sha256": "20ab5196d1d04bd23449f0c657b64d47411f6ef2f49a19e7d9d22550b94c708b",
+        "audio": "Removed",
+        "location_and_device_metadata": "Removed"
+      }
+    },
+    {
+      "id": "Video",
+      "file": "001.npz",
+      "raw_name": "Video.mov",
+      "raw_sha256": "6846edb7d93525a213772f3e62167eedbb328bc56159c2564359d536af2f947a",
+      "valid_fraction": 1.0,
+      "transitions": 40,
+      "moving_transitions": 29,
+      "tracking": {
+        "sampled_frames": 91,
+        "object_detections": 91,
+        "finger_detections": 69,
+        "target_detections": 76,
+        "continuous_segment_frames": 41,
+        "continuous_segment_s": [
+          1.7,
+          5.7
+        ],
+        "normalisation": "Observed drawn-target radius maps to a chosen 20 mm simulator radius. This does not measure real physical distances.",
+        "target_radius_px_range": [
+          50.482027857478066,
+          55.06550092523416
+        ]
+      },
+      "coordinate_units": "normalised simulator metres, not measured real metres",
+      "original_raw_sha256": "1e1d707398302266ed2b86e04a495f3fb89d9a0aa60a40215ac997932093e5d8",
+      "publication_copy": {
+        "video_packets": "Copied without video re-encoding",
+        "decoded_video_sha256": "a8c3a7bdb425c114f73af67645b3d82eb0731cd57282ab0d53e62f10e84a05f7",
+        "original_decoded_video_sha256": "a8c3a7bdb425c114f73af67645b3d82eb0731cd57282ab0d53e62f10e84a05f7",
+        "audio": "Removed",
+        "location_and_device_metadata": "Removed"
+      }
+    },
+    {
+      "id": "Video_1",
+      "file": "002.npz",
+      "raw_name": "Video_1.mov",
+      "raw_sha256": "9c67a1432af8b3e337edd8a7a6f8b7f96ee7de4317674c6f47cbcb36013355ad",
+      "valid_fraction": 1.0,
+      "transitions": 54,
+      "moving_transitions": 35,
+      "tracking": {
+        "sampled_frames": 73,
+        "object_detections": 73,
+        "finger_detections": 59,
+        "target_detections": 70,
+        "continuous_segment_frames": 55,
+        "continuous_segment_s": [
+          1.4,
+          6.8
+        ],
+        "normalisation": "Observed drawn-target radius maps to a chosen 20 mm simulator radius. This does not measure real physical distances.",
+        "target_radius_px_range": [
+          44.26994046001197,
+          51.193722726326776
+        ]
+      },
+      "coordinate_units": "normalised simulator metres, not measured real metres",
+      "original_raw_sha256": "4c8bfba296fa1ed564f745b2cd83b631bc3db512bf375a5682c66f9d291d45c1",
+      "publication_copy": {
+        "video_packets": "Copied without video re-encoding",
+        "decoded_video_sha256": "3a59e912282986d98d459df198a2dc76a5fda69887467db6317dcbc0960363aa",
+        "original_decoded_video_sha256": "3a59e912282986d98d459df198a2dc76a5fda69887467db6317dcbc0960363aa",
+        "audio": "Removed",
+        "location_and_device_metadata": "Removed"
+      }
+    },
+    {
+      "id": "Video_2",
+      "file": "003.npz",
+      "raw_name": "Video_2.mov",
+      "raw_sha256": "36c71bbc66388c1b3513dfb5e5badb4b289d60c0fe41c86718937a49f189bcca",
+      "valid_fraction": 1.0,
+      "transitions": 26,
+      "moving_transitions": 15,
+      "tracking": {
+        "sampled_frames": 45,
+        "object_detections": 45,
+        "finger_detections": 35,
+        "target_detections": 39,
+        "continuous_segment_frames": 27,
+        "continuous_segment_s": [
+          0.9996296296296296,
+          3.598666666666667
+        ],
+        "normalisation": "Observed drawn-target radius maps to a chosen 20 mm simulator radius. This does not measure real physical distances.",
+        "target_radius_px_range": [
+          52.92081633224491,
+          55.05029294788496
+        ]
+      },
+      "coordinate_units": "normalised simulator metres, not measured real metres",
+      "original_raw_sha256": "a871639517c5c809fa3157fb5788ef451997043d924c9a725623a5cf6db55114",
+      "publication_copy": {
+        "video_packets": "Copied without video re-encoding",
+        "decoded_video_sha256": "c8bb2f657d9677a225c6eaaa2ef1e865433205f186c1922e6ebbc9593ad4b1ae",
+        "original_decoded_video_sha256": "c8bb2f657d9677a225c6eaaa2ef1e865433205f186c1922e6ebbc9593ad4b1ae",
+        "audio": "Removed",
+        "location_and_device_metadata": "Removed"
+      }
+    },
+    {
+      "id": "Video_3",
+      "file": "004.npz",
+      "raw_name": "Video_3.mov",
+      "raw_sha256": "3551f1be66d4ba4f95be4a990317d462466239658096fbc01ff6103ad2125f68",
+      "valid_fraction": 1.0,
+      "transitions": 58,
+      "moving_transitions": 53,
+      "tracking": {
+        "sampled_frames": 77,
+        "object_detections": 77,
+        "finger_detections": 68,
+        "target_detections": 68,
+        "continuous_segment_frames": 59,
+        "continuous_segment_s": [
+          0.9,
+          6.7
+        ],
+        "normalisation": "Observed drawn-target radius maps to a chosen 20 mm simulator radius. This does not measure real physical distances.",
+        "target_radius_px_range": [
+          46.72100515576775,
+          55.32340798930969
+        ]
+      },
+      "coordinate_units": "normalised simulator metres, not measured real metres",
+      "original_raw_sha256": "3be09d22eda81f43e93baf6ece1f2c51a4a0884d8114f4b85ddde2acf0cc2c22",
+      "publication_copy": {
+        "video_packets": "Copied without video re-encoding",
+        "decoded_video_sha256": "f2a1812135b92e11ee712bdb4a079cd7ebc88e2c41ce981089b775a82a349515",
+        "original_decoded_video_sha256": "f2a1812135b92e11ee712bdb4a079cd7ebc88e2c41ce981089b775a82a349515",
+        "audio": "Removed",
+        "location_and_device_metadata": "Removed"
+      }
+    }
+  ],
+  "publication_note": "Published raw files preserve every decoded video frame and sample geometry. Audio and location/device metadata were removed; originals remain outside the public repository."
+}

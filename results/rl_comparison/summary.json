@@ -1,0 +1,180 @@
+{
+  "protocol": {
+    "algorithm": "SAC",
+    "variants": [
+      "scratch",
+      "demo_initialized"
+    ],
+    "training_seeds": [
+      0,
+      1,
+      2
+    ],
+    "interaction_steps_per_model": 40000,
+    "validation_seed": 9012,
+    "validation_episodes": 10,
+    "validation_interval": 5000,
+    "test_seed": 2026,
+    "test_episodes_per_model": 20,
+    "test_horizon": 120,
+    "selection": "Final fixed-budget checkpoint; validation curves do not select the model.",
+    "comparison": "Same simulator-state observations, action bounds, physical environment and paired trials as MPC/geometry.",
+    "personal_data_role": "Only world-model training clips initialize actor means. No human transitions enter robot replay or critics.",
+    "resource_note": "RL receives additional simulator interactions and a dense engineered reward; MPC receives no simulation training.",
+    "world_model_checkpoint_sha256": "465c0c09d74fdf0fd788d183b77fb36e3a5818698f75b8cd70ab88a56413a9e0",
+    "dataset_manifest_sha256": "0f1d43f1b1865d3670821b124b033380151b4a6278e9705dcbd4ce83679304bc",
+    "additional_baseline": "Imitation-only initialized actor, before simulator learning, for every training seed."
+  },
+  "seed_aggregation": "Each model faces the same 20 trials. Model seeds are replicates; these are not 60 independent task trials.",
+  "variants": {
+    "scratch": {
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "successes_per_20_trials": [
+        13,
+        9,
+        20
+      ],
+      "mean_success_rate_across_model_seeds": 0.7000000000000001,
+      "mean_final_distance_mm_across_model_seeds": 17.57842099450671,
+      "p95_decision_ms_per_model": [
+        0.3137849998893216,
+        0.3065246000915064,
+        0.43431709996184503
+      ],
+      "sim_interaction_steps_per_model": [
+        40000,
+        40000,
+        40000
+      ],
+      "total_training_control_steps_per_model": [
+        45690,
+        44940,
+        46180
+      ],
+      "training_seconds_including_validation_per_model": [
+        75.30255530600061,
+        74.87299382899982,
+        75.66069746499943
+      ]
+    },
+    "demo_initialized": {
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "successes_per_20_trials": [
+        20,
+        20,
+        20
+      ],
+      "mean_success_rate_across_model_seeds": 1.0,
+      "mean_final_distance_mm_across_model_seeds": 15.602023589869338,
+      "p95_decision_ms_per_model": [
+        0.3993589996753142,
+        0.4482600997107504,
+        0.5239309002718071
+      ],
+      "sim_interaction_steps_per_model": [
+        40000,
+        40000,
+        40000
+      ],
+      "total_training_control_steps_per_model": [
+        46240,
+        46580,
+        47050
+      ],
+      "training_seconds_including_validation_per_model": [
+        75.34202169800028,
+        76.80334135799967,
+        76.9698094789992
+      ]
+    }
+  },
+  "baselines": {
+    "geometry": {
+      "successes": 20,
+      "episodes": 20,
+      "success_rate": 1.0,
+      "success_rate_95pct_wilson_interval": [
+        0.8388698745050667,
+        1
+      ],
+      "mean_final_distance_mm": 13.801056282942378,
+      "p50_controller_ms": 0.020804999621759634,
+      "p95_controller_ms": 0.05626570018648631
+    },
+    "mpc": {
+      "successes": 20,
+      "episodes": 20,
+      "success_rate": 1.0,
+      "success_rate_95pct_wilson_interval": [
+        0.8388698745050667,
+        1
+      ],
+      "mean_final_distance_mm": 12.7985801645375,
+      "p50_controller_ms": 5.583684000612266,
+      "p95_controller_ms": 6.678606950345054
+    },
+    "prior": {
+      "successes": 20,
+      "episodes": 20,
+      "success_rate": 1.0,
+      "success_rate_95pct_wilson_interval": [
+        0.8388698745050667,
+        1
+      ],
+      "mean_final_distance_mm": 15.22871155253316,
+      "p50_controller_ms": 0.06207350043041515,
+      "p95_controller_ms": 0.1636169995435921
+    },
+    "replay": {
+      "successes": 0,
+      "episodes": 20,
+      "success_rate": 0.0,
+      "success_rate_95pct_wilson_interval": [
+        0,
+        0.16113012549493322
+      ],
+      "mean_final_distance_mm": 121.53838252796936,
+      "p50_controller_ms": 0.0061740001910948195,
+      "p95_controller_ms": 0.02777019990389806
+    },
+    "mpc_no_uncertainty": {
+      "successes": 20,
+      "episodes": 20,
+      "success_rate": 1.0,
+      "success_rate_95pct_wilson_interval": [
+        0.8388698745050667,
+        1
+      ],
+      "mean_final_distance_mm": 13.291819233157412,
+      "p50_controller_ms": 5.489047000082792,
+      "p95_controller_ms": 6.542586099385517
+    }
+  },
+  "imitation_only": {
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "successes_per_20_trials": [
+      16,
+      11,
+      18
+    ],
+    "mean_final_distance_mm_across_model_seeds": 32.195116887487735,
+    "p95_decision_ms_per_model": [
+      0.5186827499983335,
+      0.44851035022475094,
+      0.45893239985161915
+    ],
+    "sim_training_interaction_steps": 0
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "quantity": "geometry minus MPC final distance, mm; positive favours MPC",
+  "mean": 1.0024761184048778,
+  "bootstrap_95pct_interval": [
+    -0.48065745782769553,
+    2.4741396352945118
+  ],
+  "paired_trials": 20,
+  "bootstrap_samples": 10000,
+  "seed": 2026,
+  "limitation": "Descriptive interval for this small seeded task suite; not broad generalisation evidence."
+}

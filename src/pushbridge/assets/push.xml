@@ -1,0 +1,43 @@
+<mujoco model="PushBridge planar arm">
+  <compiler angle="radian"/>
+  <option timestep="0.002" gravity="0 0 -9.81" integrator="implicitfast"/>
+  <visual><global offwidth="960" offheight="640"/><quality shadowsize="2048"/></visual>
+  <default>
+    <joint damping="1" armature="0.02"/>
+    <geom friction="0.25 0.005 0.0001" solref="0.006 1" solimp="0.95 0.99 0.001"/>
+  </default>
+  <asset>
+    <texture name="grid" type="2d" builtin="checker" rgb1="0.13 0.17 0.22" rgb2="0.16 0.20 0.25" width="512" height="512"/>
+    <material name="table" texture="grid" texrepeat="8 8" reflectance="0.1"/>
+  </asset>
+  <worldbody>
+    <light pos="0.3 -0.4 1.5" dir="0 0 -1" diffuse="0.9 0.9 0.9" ambient="0.35 0.35 0.35"/>
+    <geom name="floor" type="plane" size="1 1 0.02" material="table"/>
+    <geom name="paper" type="box" pos="0.3985 0 0.0002" size="0.1485 0.105 0.0001" rgba="0.88 0.91 0.92 1" contype="0" conaffinity="0"/>
+    <geom name="base" type="cylinder" pos="0 0 0.07" size="0.055 0.07" rgba="0.18 0.22 0.28 1" contype="0" conaffinity="0"/>
+    <site name="goal" pos="0.48 0 0.001" type="cylinder" size="0.02 0.0005" rgba="0.2 0.7 0.45 0.7"/>
+    <camera name="overview" pos="0.65 -0.68 0.72" xyaxes="0.90 0.43 0 -0.30 0.64 0.70"/>
+    <body name="shoulder" pos="0 0 0.15">
+      <joint name="shoulder" type="hinge" axis="0 0 1" range="-2.9 2.9"/>
+      <geom type="capsule" fromto="0 0 0 0.32 0 0" size="0.018" mass="0.3" rgba="0.48 0.58 0.68 1" contype="0" conaffinity="0"/>
+      <body name="elbow" pos="0.32 0 0">
+        <joint name="elbow" type="hinge" axis="0 0 1" range="0.03 3.05"/>
+        <geom type="sphere" size="0.026" mass="0.1" rgba="0.15 0.2 0.27 1" contype="0" conaffinity="0"/>
+        <geom type="capsule" fromto="0 0 0 0.30 0 0" size="0.015" mass="0.2" rgba="0.65 0.73 0.80 1" contype="0" conaffinity="0"/>
+        <body name="tool" pos="0.30 0 0">
+          <geom type="capsule" fromto="0 0 0 0 0 -0.134" size="0.006" mass="0.05" rgba="0.2 0.35 0.5 1" contype="0" conaffinity="0"/>
+          <geom name="tip_geom" type="sphere" pos="0 0 -0.140" size="0.008" mass="0.02" rgba="0.1 0.45 0.98 1"/>
+          <site name="tip" pos="0 0 -0.140" size="0.004"/>
+        </body>
+      </body>
+    </body>
+    <body name="puck" pos="0.36 0 0.009">
+      <freejoint name="puck"/>
+      <geom name="puck_geom" type="cylinder" size="0.012 0.009" mass="0.025" rgba="0.92 0.12 0.15 1"/>
+    </body>
+  </worldbody>
+  <actuator>
+    <position name="shoulder_servo" joint="shoulder" kp="3000" kv="40" forcerange="-50 50"/>
+    <position name="elbow_servo" joint="elbow" kp="3000" kv="35" forcerange="-40 40"/>
+  </actuator>
+</mujoco>

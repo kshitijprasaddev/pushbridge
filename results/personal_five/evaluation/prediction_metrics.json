@@ -1,0 +1,71 @@
+{
+  "source": "personal",
+  "collector": "User-supplied home recordings",
+  "split": {
+    "train_ids": [
+      "Video_3",
+      "Video",
+      "Video_2"
+    ],
+    "validation_ids": [
+      "Video_1"
+    ],
+    "test_ids": [
+      "IMG_5670"
+    ]
+  },
+  "calibration": {
+    "method": "black target-circle relative coordinates",
+    "sim_goal_radius_m": 0.02,
+    "metric_scale_measured": false,
+    "sample_hz": 10,
+    "time_note": "Nominal 10 Hz dataset grid; original selected frame times retained in video_time_s."
+  },
+  "coordinate_units": "normalised simulator metres, not measured real metres",
+  "training_seconds": 1.293322444000296,
+  "parameters_per_member": 1283,
+  "epochs_max": 200,
+  "ensemble": 3,
+  "seed": 7,
+  "learned_contact_radius_mm": [
+    20.825069397687912,
+    20.678095519542694,
+    20.71698009967804
+  ],
+  "validation": {
+    "transitions": 54,
+    "moving_transitions": 35,
+    "mean_error_mm": 1.5294761856449526,
+    "p90_error_mm": 3.501384239994503,
+    "zero_motion_error_mm": 3.9524924035886166,
+    "analytic_contact_error_mm": 2.1991062587212555,
+    "moving_mean_error_mm": 1.9265870795060718,
+    "validation_scaled_radius_coverage": 0.8888888888888888,
+    "mean_prediction_radius_mm": 3.000865690410137,
+    "5_step_open_loop_error_mm": 5.3164497307361875,
+    "5_step_windows": 10,
+    "10_step_open_loop_error_mm": 6.05482322716313,
+    "10_step_windows": 5
+  },
+  "test": {
+    "transitions": 111,
+    "moving_transitions": 63,
+    "mean_error_mm": 0.8949669940793397,
+    "p90_error_mm": 1.9545066207802544,
+    "zero_motion_error_mm": 1.6449456755591099,
+    "analytic_contact_error_mm": 1.2154612690218753,
+    "moving_mean_error_mm": 1.2670734968942086,
+    "validation_scaled_radius_coverage": 0.990990990990991,
+    "mean_prediction_radius_mm": 2.7820891700685024,
+    "5_step_open_loop_error_mm": 4.058696882860211,
+    "5_step_windows": 22,
+    "10_step_open_loop_error_mm": 7.92186015620773,
+    "10_step_windows": 11
+  },
+  "limitations": [
+    "Tracked planar states, not video generation.",
+    "Validation radius is empirical; no coverage guarantee for correlated clips or simulation shift.",
+    "Simulation uses ground-truth state observations.",
+    "No sim policy training: the planner transfers the real-data dynamics model directly."
+  ]
+}

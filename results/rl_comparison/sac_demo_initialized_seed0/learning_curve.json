@@ -1,0 +1,78 @@
+{
+  "validation_seed": 9012,
+  "selection": "Final fixed-budget model; curves are not used to select checkpoints.",
+  "rows": [
+    {
+      "sim_interaction_steps": 0,
+      "terminal_hold_control_steps": 0,
+      "elapsed_seconds_including_validation": 1.03807525800039,
+      "successes": 8,
+      "episodes": 10,
+      "mean_final_distance_mm": 28.773659760783765
+    },
+    {
+      "sim_interaction_steps": 5000,
+      "terminal_hold_control_steps": 60,
+      "elapsed_seconds_including_validation": 8.757748682000056,
+      "successes": 1,
+      "episodes": 10,
+      "mean_final_distance_mm": 83.78542647754989
+    },
+    {
+      "sim_interaction_steps": 10000,
+      "terminal_hold_control_steps": 110,
+      "elapsed_seconds_including_validation": 17.979541078000693,
+      "successes": 0,
+      "episodes": 10,
+      "mean_final_distance_mm": 62.178282448011544
+    },
+    {
+      "sim_interaction_steps": 15000,
+      "terminal_hold_control_steps": 330,
+      "elapsed_seconds_including_validation": 27.31618830500065,
+      "successes": 0,
+      "episodes": 10,
+      "mean_final_distance_mm": 75.79678496335922
+    },
+    {
+      "sim_interaction_steps": 20000,
+      "terminal_hold_control_steps": 940,
+      "elapsed_seconds_including_validation": 36.470130047000566,
+      "successes": 8,
+      "episodes": 10,
+      "mean_final_distance_mm": 19.506594767615393
+    },
+    {
+      "sim_interaction_steps": 25000,
+      "terminal_hold_control_steps": 1700,
+      "elapsed_seconds_including_validation": 45.85909914500007,
+      "successes": 6,
+      "episodes": 10,
+      "mean_final_distance_mm": 18.122102850676793
+    },
+    {
+      "sim_interaction_steps": 30000,
+      "terminal_hold_control_steps": 2910,
+      "elapsed_seconds_including_validation": 55.50892625400047,
+      "successes": 6,
+      "episodes": 10,
+      "mean_final_distance_mm": 18.606533176562714
+    },
+    {
+      "sim_interaction_steps": 35000,
+      "terminal_hold_control_steps": 4340,
+      "elapsed_seconds_including_validation": 65.26101713300068,
+      "successes": 9,
+      "episodes": 10,
+      "mean_final_distance_mm": 14.22469088208955
+    },
+    {
+      "sim_interaction_steps": 40000,
+      "terminal_hold_control_steps": 6240,
+      "elapsed_seconds_including_validation": 75.32914167000035,
+      "successes": 10,
+      "episodes": 10,
+      "mean_final_distance_mm": 15.15640289418667
+    }
+  ]
+}

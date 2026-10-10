@@ -1,0 +1,11 @@
+{
+  "sac_scratch_seed0": "sac_scratch_seed0/sac.zip",
+  "sac_demo_initialized_seed0": "sac_demo_initialized_seed0/sac.zip",
+  "sac_scratch_seed1": "sac_scratch_seed1/sac.zip",
+  "sac_demo_initialized_seed1": "sac_demo_initialized_seed1/sac.zip",
+  "sac_scratch_seed2": "sac_scratch_seed2/sac.zip",
+  "sac_demo_initialized_seed2": "sac_demo_initialized_seed2/sac.zip",
+  "bc_only_seed0": "sac_demo_initialized_seed0/actor_initialized.zip",
+  "bc_only_seed1": "sac_demo_initialized_seed1/actor_initialized.zip",
+  "bc_only_seed2": "sac_demo_initialized_seed2/actor_initialized.zip"
+}

@@ -1,0 +1,26 @@
+{
+  "algorithm": "SAC",
+  "variants": [
+    "scratch",
+    "demo_initialized"
+  ],
+  "training_seeds": [
+    0,
+    1,
+    2
+  ],
+  "interaction_steps_per_model": 40000,
+  "validation_seed": 9012,
+  "validation_episodes": 10,
+  "validation_interval": 5000,
+  "test_seed": 2026,
+  "test_episodes_per_model": 20,
+  "test_horizon": 120,
+  "selection": "Final fixed-budget checkpoint; validation curves do not select the model.",
+  "comparison": "Same simulator-state observations, action bounds, physical environment and paired trials as MPC/geometry.",
+  "personal_data_role": "Only world-model training clips initialize actor means. No human transitions enter robot replay or critics.",
+  "resource_note": "RL receives additional simulator interactions and a dense engineered reward; MPC receives no simulation training.",
+  "world_model_checkpoint_sha256": "465c0c09d74fdf0fd788d183b77fb36e3a5818698f75b8cd70ab88a56413a9e0",
+  "dataset_manifest_sha256": "0f1d43f1b1865d3670821b124b033380151b4a6278e9705dcbd4ce83679304bc",
+  "additional_baseline": "Imitation-only initialized actor, before simulator learning, for every training seed."
+}

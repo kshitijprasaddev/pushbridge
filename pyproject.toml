@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pushbridge"
+version = "0.1.0"
+description = "Personal phone demonstrations to contact-space policies, state predictions and cross-embodiment MuJoCo control"
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.26,<3", "opencv-python>=4.6,<5", "torch>=2.2,<3", "mujoco==3.3.7", "imageio-ffmpeg==0.6.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<9"]
+analysis = ["matplotlib>=3.7,<4"]
+rl = ["stable-baselines3==2.9.0", "gymnasium==1.4.0"]
+
+[project.scripts]
+pushbridge = "pushbridge.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+pushbridge = ["assets/*.xml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

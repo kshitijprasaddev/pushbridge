@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "checks": [
+    "All five published recording hashes match the extraction manifest.",
+    "Published videos have no GPS metadata; publication records verify identical decoded video frames.",
+    "Training, validation and test recordings are disjoint.",
+    "Physical target dimensions and all six frozen checkpoint hashes match the protocol.",
+    "All 520 precision traces match their endpoints, counts and command limits; 406 successful holds fit throughout.",
+    "Dashboard metrics and all 360 displayed trajectories exactly match saved evidence.",
+    "All 32 static report file links exist.",
+    "No em dashes remain in source, documentation or text artifacts."
+  ],
+  "precision_traces_checked": 520,
+  "successful_holds_checked": 406,
+  "sha256": {
+    "data/raw/personal_circle/IMG_5670.mov": "a4d80335ab1ccedeb93374161b419d87123be77db0786cd482a6127850e3c354",
+    "data/raw/personal_circle/Video.mov": "6846edb7d93525a213772f3e62167eedbb328bc56159c2564359d536af2f947a",
+    "data/raw/personal_circle/Video_1.mov": "9c67a1432af8b3e337edd8a7a6f8b7f96ee7de4317674c6f47cbcb36013355ad",
+    "data/raw/personal_circle/Video_2.mov": "36c71bbc66388c1b3513dfb5e5badb4b289d60c0fe41c86718937a49f189bcca",
+    "data/raw/personal_circle/Video_3.mov": "3551f1be66d4ba4f95be4a990317d462466239658096fbc01ff6103ad2125f68",
+    "results/rl_comparison/sac_demo_initialized_seed0/sac.zip": "720bb4f3d6cbafa5cb8f8ce1317a6b3fb3a7198da8f75c1cc64de9837ed7e70f",
+    "results/embodiment_transfer/posttrained_seed0/sac.zip": "072381aa483f024b520d4e1c1fb39d68ce040c496d963ef922da40d93be51c76",
+    "results/rl_comparison/sac_demo_initialized_seed1/sac.zip": "630fb757738f0a17b37c4dc5557ea8d2edf00a9e1a8a6f017c1d43947e08bf00",
+    "results/embodiment_transfer/posttrained_seed1/sac.zip": "7983a5ea30d6cd4983020ccc0523ed7ad97f6ee6b8c5667c6c1f2a88a2db90f6",
+    "results/rl_comparison/sac_demo_initialized_seed2/sac.zip": "6f1b830b6b6bf737b7085940b96ba73b8c588c4ea24013bd493e06a075cf9b58",
+    "results/embodiment_transfer/posttrained_seed2/sac.zip": "6cd9fd1e77feb544c7fd040434b97e64cd25e10992343576108bdc51a36dffbe"
+  },
+  "scope": "Included evidence consistency, not an independent rerun of every experiment or a hardware test"
+}

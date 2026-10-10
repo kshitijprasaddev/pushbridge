@@ -1,0 +1,25 @@
+{
+  "seed": 2,
+  "source_checkpoint_sha256": "212195cd795dd9cfb2da0c44b6b29851332f6951e7707e5765876ea5015a2dae",
+  "seconds": 0.1426132990000042,
+  "personal_data": {
+    "training_clip_ids": [
+      "Video",
+      "Video_2",
+      "Video_3"
+    ],
+    "base_labels": 123,
+    "augmented_labels": 1968,
+    "manifest_sha256": "0f1d43f1b1865d3670821b124b033380151b4a6278e9705dcbd4ce83679304bc",
+    "personal_source": "personal",
+    "source_coordinate_units": "normalised simulator metres"
+  },
+  "supervised": {
+    "updates": 200,
+    "batch_size": 128,
+    "learning_rate": 0.0001,
+    "last_50_updates_action_mse": 0.20786767035722734
+  },
+  "critic_unchanged": true,
+  "extra_sim_training_steps": 0
+}

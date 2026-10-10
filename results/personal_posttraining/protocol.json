@@ -1,0 +1,23 @@
+{
+  "source": "Scratch SAC after 40,000 simulator decisions per seed",
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "supervised_updates": 200,
+  "learning_rate": 0.0001,
+  "batch_size": 128,
+  "personal_data": "Same three training clips; validation/test clips excluded",
+  "objective": "Actor mean action MSE to observed, norm-clipped, rotation-augmented fingertip actions",
+  "selection": "Fixed update budget, no validation or test model selection",
+  "evaluation_seed": 2026,
+  "evaluation_episodes": 20,
+  "new_sim_training_interactions": 0,
+  "critic": "Unchanged, not used for supervised fitting",
+  "limitations": [
+    "Human action labels can conflict with robot physics",
+    "Different personal-data timing, not a matched end-to-end algorithm comparison",
+    "No visual encoder or pretrained VLA; source pretraining is simulator SAC"
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "source_direct_seed1": {
+    "all_states_actions_joints_and_phases_bit_identical": true,
+    "max_state_difference": 0.0,
+    "success": false,
+    "simulation_duration_s": 12.0,
+    "final_image_display_seconds": 2
+  },
+  "source_direct_seed1_finish": {
+    "all_states_actions_joints_and_phases_bit_identical": true,
+    "max_state_difference": 0.0,
+    "success": true,
+    "simulation_duration_s": 8.4,
+    "final_image_display_seconds": 2
+  },
+  "source_contact_seed1": {
+    "all_states_actions_joints_and_phases_bit_identical": true,
+    "max_state_difference": 0.0,
+    "success": true,
+    "simulation_duration_s": 5.2,
+    "final_image_display_seconds": 2
+  },
+  "source_contact_seed1_finish": {
+    "all_states_actions_joints_and_phases_bit_identical": true,
+    "max_state_difference": 0.0,
+    "success": true,
+    "simulation_duration_s": 7.9,
+    "final_image_display_seconds": 2
+  },
+  "posttrained_seed1": {
+    "all_states_actions_joints_and_phases_bit_identical": true,
+    "max_state_difference": 0.0,
+    "success": true,
+    "simulation_duration_s": 5.1000000000000005,
+    "final_image_display_seconds": 2
+  },
+  "posttrained_seed1_finish": {
+    "all_states_actions_joints_and_phases_bit_identical": true,
+    "max_state_difference": 0.0,
+    "success": true,
+    "simulation_duration_s": 7.1000000000000005,
+    "final_image_display_seconds": 2
+  }
+}

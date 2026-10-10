@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "frontend_tests": 4,
+  "python_tests": 20,
+  "exported_replays": 360,
+  "precision_evidence_trials": 520,
+  "browser_checks": [
+    "390 px phone layout without horizontal overflow",
+    "Perspective, top and contact detail camera views",
+    "Replay from initial and final state, pause and reset",
+    "RL seed2 task 04 remains failed at 111.6 mm",
+    "Prediction horizon selection and actor speed panel",
+    "Native MuJoCo video loaded and played"
+  ],
+  "rendering": "Three.js PBR materials, room reflections,2048px shadows, orbit controls; saved pose reconstruction, no browser physics",
+  "publication_recordings": "GPS/device metadata and audio removed; decoded frames identical; originals outside public repository",
+  "deployment": "Vite static build; Vercel configuration included; public deployment not yet performed"
+}

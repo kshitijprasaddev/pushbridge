@@ -1,0 +1,16 @@
+{
+  "model_sha256": "720bb4f3d6cbafa5cb8f8ce1317a6b3fb3a7198da8f75c1cc64de9837ed7e70f",
+  "thread_count_torch": 2,
+  "warmup_calls_per_method": 100,
+  "blocks": 30,
+  "calls_per_method_per_block": 100,
+  "order": "alternate methods by block, fixed observations shuffled by seed 871",
+  "timed_scope": "Full policy.act(state, goal), including observation encoding and action norm clipping; no physics/rendering",
+  "trace_check_seed": 2026,
+  "trace_check_episodes": 20,
+  "method": "Float32 deterministic actor export, no retraining/quantisation",
+  "platform": "Linux-6.14.0-37-generic-x86_64-with-glibc2.39",
+  "python": "3.12.3",
+  "numpy": "1.26.4",
+  "torch": "2.9.0+cpu"
+}

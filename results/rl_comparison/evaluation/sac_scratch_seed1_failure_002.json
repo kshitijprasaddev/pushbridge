@@ -1,0 +1,25 @@
+{
+  "trial": {
+    "trial": 2,
+    "success": false,
+    "steps": 120,
+    "final_distance_mm": 25.25975832196543,
+    "friction": 0.15,
+    "initial_puck": [
+      0.11640026533934977,
+      0.10621229570578813
+    ],
+    "initial_tool": [
+      0.07753951522490159,
+      0.10779971757856338
+    ],
+    "goal": [
+      0.2430358103350228,
+      0.10035424908600929
+    ]
+  },
+  "selection": "First failed trial unless explicitly selected",
+  "frames": 120,
+  "max_saved_state_replay_difference_mm": 0.0,
+  "last_20_requested_action_mean_norm_mm": 0.0
+}

@@ -1,0 +1,74 @@
+{
+  "question": "Does full-object success require a different terminal objective and an explicit precision controller?",
+  "followup": true,
+  "prior_experiment_unchanged": "results/embodiment_transfer/evaluation.json",
+  "goal_radius_mm": 20,
+  "puck_radius_mm": 12,
+  "fit_distance_mm": 8,
+  "success": "Centre distance <= 8 mm throughout ten stationary 0.1 s hold ticks after contact release for hybrid feedback; policy-only starts hold on entering the 8 mm region.",
+  "decision_budget": 120,
+  "hold_ticks_extra_and_logged": true,
+  "feedback": {
+    "handoff_distance_mm": 30,
+    "stop_distance_mm": 3,
+    "max_action_mm": 3,
+    "push_gain": 0.22,
+    "min_push_mm": 0.4,
+    "lateral_gain": 0.8,
+    "release_actions": 4,
+    "release_step_mm": 3
+  },
+  "validation": {
+    "seed": 7131,
+    "cases": 10,
+    "hybrid_seed1_successes": {
+      "direct": 10,
+      "contact": 10
+    },
+    "feedback_alone_successes": 8,
+    "note": "One validation run; constants then frozen, no search on evaluation cases."
+  },
+  "suites": {
+    "paired": {
+      "seed": 2027,
+      "cases": 20,
+      "model_seeds": [
+        0,
+        1,
+        2
+      ]
+    },
+    "fresh": {
+      "seed": 9092,
+      "cases": 20,
+      "model_seeds": [
+        1
+      ]
+    }
+  },
+  "policy_weights": "Unchanged. No additional imitation updates or RL training.",
+  "checkpoints": {
+    "0": {
+      "source_sha256": "720bb4f3d6cbafa5cb8f8ce1317a6b3fb3a7198da8f75c1cc64de9837ed7e70f",
+      "posttrained_sha256": "072381aa483f024b520d4e1c1fb39d68ce040c496d963ef922da40d93be51c76"
+    },
+    "1": {
+      "source_sha256": "630fb757738f0a17b37c4dc5557ea8d2edf00a9e1a8a6f017c1d43947e08bf00",
+      "posttrained_sha256": "7983a5ea30d6cd4983020ccc0523ed7ad97f6ee6b8c5667c6c1f2a88a2db90f6"
+    },
+    "2": {
+      "source_sha256": "6f1b830b6b6bf737b7085940b96ba73b8c588c4ea24013bd493e06a075cf9b58",
+      "posttrained_sha256": "6cd9fd1e77feb544c7fd040434b97e64cd25e10992343576108bdc51a36dffbe"
+    }
+  },
+  "training_interactions_added": 0,
+  "attribution": "Hybrid policies use learned approach then hand-coded state feedback. Include feedback-only baseline under identical budgets.",
+  "limitations": [
+    "State input from simulator, not perception or language",
+    "Planar circular-footprint criterion",
+    "Follow-up motivated by an observed terminal-metric mismatch",
+    "Fresh suite has only one model seed",
+    "Twenty paired cases per suite; training seeds are not independent task samples",
+    "Known geometry and exact state are supplied to the feedback controller"
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "seed": 0,
+  "source_checkpoint_sha256": "720bb4f3d6cbafa5cb8f8ce1317a6b3fb3a7198da8f75c1cc64de9837ed7e70f",
+  "source_sim_interactions": 40000,
+  "target_sim_interactions": 20000,
+  "terminal_hold_control_steps": 4040,
+  "elapsed_seconds_including_validation": 43.84259308399851,
+  "learning_rate": 0.00015,
+  "transferred": "Actor, critics, entropy parameter and optimizer states; target replay initially empty",
+  "personal_data_role": "Source actor initialized from the three personal training clips, then source SAC, then target SAC",
+  "target_reward": "Potential progress using 18 mm behind-object pose; -0.01 per decision; +10 stable success; -5 outside",
+  "observation": "Contact-normalised relative tool/object coordinates and goal displacement; exact simulator states",
+  "model_selection": "Final checkpoint after fixed budget; validation seed 7131; test seed 2027",
+  "embodiment": {
+    "name": "Compact 3R",
+    "link_lengths_m": [
+      0.24,
+      0.17,
+      0.13
+    ],
+    "joint_ranges_rad": [
+      [
+        -1.3,
+        1.3
+      ],
+      [
+        0.05,
+        2.75
+      ],
+      [
+        -1.6,
+        1.6
+      ]
+    ],
+    "max_command_joint_speed_rad_s": 0.25,
+    "tip_radius_m": 0.003,
+    "puck_radius_m": 0.012,
+    "puck_mass_kg": 0.05,
+    "servo_kp": 2200,
+    "servo_kv": 30,
+    "solver": "Damped least squares with joint bounds, command slew limits and a null-space posture preference"
+  }
+}
