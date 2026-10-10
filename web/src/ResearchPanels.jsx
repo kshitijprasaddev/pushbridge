@@ -57,10 +57,10 @@ const HORIZONS = [
 ];
 
 const TABS = [
-  { id: "transfer", number: "01", label: "Contact transfer" },
-  { id: "learning", number: "02", label: "Policy learning" },
-  { id: "prediction", number: "03", label: "State prediction" },
-  { id: "deployment", number: "04", label: "Actor deployment" },
+  { id: "transfer", number: "01", label: "Retargeting" },
+  { id: "learning", number: "02", label: "Policy training" },
+  { id: "prediction", number: "03", label: "Motion prediction" },
+  { id: "deployment", number: "04", label: "Inference speed" },
 ];
 
 function Arrow({ diagonal = false }) {
@@ -179,8 +179,9 @@ function ClipDialog({ clip, onClose }) {
           <span>{clip.transitions} usable transitions</span>
         </div>
         <p>
-          Red marks the object; blue marks the fingertip. Coordinates use the
-          drawn target as a reference. The video pixels are recorded footage.
+          Red tracks the cap; blue tracks the fingertip. Each before-and-after
+          sample records how a finger move changes the cap position. The drawn
+          circle provides the coordinate reference.
         </p>
       </div>
     </div>
@@ -196,13 +197,16 @@ function RecordingStrip({ manifest }) {
         <div>
           <span className="rp-eyebrow">Dataset / recorded at home</span>
           <h3>
-            Five clips.
-            <br />A complete provenance trail.
+            A finger push.
+            <br />
+            Five home recordings.
           </h3>
         </div>
         <p>
-          Push a red cap into a circle with a fingertip. Track the contact,
-          retain continuous motion, and split entire recordings before learning.
+          Push a red cap into a drawn circle. Track the cap and fingertip to
+          turn each recording into motion samples. These samples teach the model
+          how contact moves the object and give the policy its first action
+          examples.
         </p>
       </div>
       <div className="rp-recording-strip">
@@ -252,9 +256,10 @@ function RecordingStrip({ manifest }) {
           moving-object transitions
         </span>
         <p>
-          3 train · 1 validation · 1 test. Whole clips stay in one split. The 20
-          mm target is a chosen simulation scale, not a physical measurement of
-          the recordings.
+          3 training clips · 1 validation clip · 1 test clip. Whole recordings
+          stay in one split, so nearby frames cannot leak into the test set. The
+          drawn circle maps to a chosen 20 mm simulation radius; the recordings
+          do not establish real-world distances.
         </p>
       </div>
       {selectedClip && (
@@ -381,21 +386,23 @@ function TransferPanel({ manifest }) {
       aria-labelledby="rp-tab-transfer"
     >
       <div className="rp-study-copy">
-        <span className="rp-eyebrow">Embodiment retargeting</span>
+        <span className="rp-eyebrow">One learned policy, two robot arms</span>
         <h3>
-          Different joints.
+          Keep the pushing skill.
           <br />
-          Different contact geometry.
+          Change the arm.
         </h3>
         <p>
-          The target arm is shorter, has a third joint, and pushes through a
-          narrower tip. The same Cartesian command produces different reachable
-          motion and contact clearance.
+          Retargeting means using a learned policy on a robot with different
+          geometry. Here the target arm is shorter, has a third joint and a
+          narrower tip. Its object is heavier and its joint commands are
+          speed-limited.
         </p>
         <p>
-          The adapter expresses tool position relative to the object, corrects
-          for the sum of their radii, then transforms the policy action back
-          into target coordinates.
+          Touch occurs at a different distance between the tip and object
+          centres. The adapter rescales that relative position before the frozen
+          policy chooses a move, then maps the move back to the target arm. No
+          policy weights change in this step.
         </p>
         <EvidenceLink
           href={evidenceUrl(
@@ -420,14 +427,14 @@ function TransferPanel({ manifest }) {
             <strong>4 / 3</strong>
           </div>
           <p>
-            Object radius stays at 12 mm. The frozen actor keeps its original
-            weights.
+            With the same 12 mm object, contact begins at 20 mm for the source
+            tip and 15 mm for the target tip.
           </p>
         </div>
         <div className="rp-figure-note">
-          <span className="rp-note-dot" />
-          Compact target trials use bounded inverse kinematics and physical
-          MuJoCo contacts.
+          <span className="rp-note-dot" />A bounded inverse-kinematics solver
+          converts tool moves into joint commands. MuJoCo calculates the
+          resulting physical contacts.
         </div>
       </div>
     </div>
@@ -436,9 +443,9 @@ function TransferPanel({ manifest }) {
 
 function SeedBars() {
   const rows = [
-    { label: "Scratch SAC", values: [13, 9, 20], className: "scratch" },
+    { label: "SAC from scratch", values: [13, 9, 20], className: "scratch" },
     {
-      label: "Personal init + SAC",
+      label: "Demonstrations + SAC",
       values: [20, 20, 20],
       className: "personal",
     },
@@ -472,8 +479,9 @@ function SeedBars() {
         </div>
       ))}
       <div className="rp-seed-chart-foot">
-        Same 20 cases across training seeds. Classical feedback and MPC also
-        solve 20/20 under this original criterion.
+        Each seed is a separate training run on the same 20 test cases.
+        Classical feedback and model predictive control (MPC) also solve 20/20
+        under this original criterion.
       </div>
     </div>
   );
@@ -489,22 +497,24 @@ function LearningPanel({ manifest }) {
     >
       <div className="rp-study-copy">
         <span className="rp-eyebrow">
-          Bootstrap, then learn through contact
+          Demonstrations first, simulator practice next
         </span>
         <h3>
-          Personal motion
-          <br />
-          initializes the actor.
+          Give the policy
+          <br />a useful starting point.
         </h3>
         <p>
-          123 filtered training transitions, augmented by in-plane rotations,
-          initialize the actor's mean action. SAC then learns from 40,000
-          simulator interactions per training seed.
+          The actor is the network that chooses the next tool move. It first
+          imitates 123 filtered action examples from the training recordings,
+          augmented with in-plane rotations. Soft Actor-Critic (SAC) then learns
+          from contact and reward over 40,000 simulator interactions per
+          training seed.
         </p>
         <p>
-          The compact robot receives the contact adapter and a separate
-          20,000-step target RL run. The original checkpoints stay frozen for
-          the strict completion study above.
+          A separate experiment adds 20,000 reinforcement-learning steps on the
+          compact arm after applying the adapter. The strict completion study
+          above evaluates these saved policies with and without the explicit
+          precision controller; it does not train them again.
         </p>
         <EvidenceLink
           href={evidenceUrl(
@@ -523,12 +533,13 @@ function LearningPanel({ manifest }) {
           <span className="rp-eyebrow">
             Additional experiment / personal post-training
           </span>
-          <h4>Some useful updates also hurt.</h4>
+          <h4>More fitting does not always help.</h4>
           <p>
             Adding 200 supervised actor updates after scratch SAC changes source
             successes from <strong>13 → 20</strong>, <strong>9 → 5</strong>, and{" "}
-            <strong>20 → 19</strong> across the three seeds. Human action labels
-            can conflict with the robot's learned behavior.
+            <strong>20 → 19</strong> across the three seeds. One improves; two
+            decline. Fitting human action labels after robot training is not a
+            reliable improvement in this small study.
           </p>
           <span className="rp-quiet-note">
             Measured at the original 18 mm threshold. This result is preserved
@@ -669,21 +680,23 @@ function PredictionPanel({ manifest }) {
       aria-labelledby="rp-tab-prediction"
     >
       <div className="rp-study-copy">
-        <span className="rp-eyebrow">World modelling / measured states</span>
+        <span className="rp-eyebrow">World model / predict object motion</span>
         <h3>
           Predict what
           <br />
           the object does next.
         </h3>
         <p>
-          A three-member model ensemble learns object displacement from personal
-          contact tracks. Future tool actions are supplied; object state rolls
-          forward without resetting inside each window.
+          Given an object position and the next finger moves, how far will the
+          object travel? Three learned contact models predict its displacement
+          from the recorded motion samples. Each prediction window starts from
+          the measured position, then continues without corrections.
         </p>
         <p>
-          This is action-conditioned state prediction, projected onto held-out
-          footage. The frames come from the recording. The model does not
-          generate video pixels.
+          The future finger actions are supplied to the models. The overlay
+          compares their predicted positions with the held-out recording. Video
+          frames remain the original footage; the model predicts object state,
+          not new video pixels.
         </p>
         <EvidenceLink href={video}>
           Watch prediction on recorded footage
@@ -692,7 +705,7 @@ function PredictionPanel({ manifest }) {
       <div className="rp-study-figure">
         <div className="rp-figure-head">
           <span>Held-out recording / IMG_5670</span>
-          <span>Open-loop prediction</span>
+          <span>Prediction without position corrections</span>
         </div>
         <PredictionChart horizons={horizons} selected={selected} />
         <div className="rp-chart-legend">
@@ -735,8 +748,9 @@ function PredictionPanel({ manifest }) {
         </div>
         <div className="rp-figure-note">
           <span className="rp-note-dot" />
-          One test recording; longer horizons have fewer windows. Distances use
-          the chosen simulator scale.
+          Choose a horizon to see how prediction error grows. Longer horizons
+          have fewer test windows. All windows come from one held-out recording;
+          distances use the chosen simulation scale.
         </div>
       </div>
     </div>
@@ -762,15 +776,15 @@ function DeploymentPanel({ manifest }) {
           Less inference overhead.
         </h3>
         <p>
-          Export the deterministic mean actor and remove training and
-          distribution wrappers. Direct Torch inference uses the same float32
-          kernels and produces identical actions and states in all 20 compared
-          rollouts.
+          The trained actor already knows how to choose a move. Calling it
+          directly removes the general-purpose prediction wrapper. The direct
+          Torch path uses the same float32 kernels and produces identical
+          actions and states in all 20 compared rollouts.
         </p>
         <p>
-          Timing covers observation encoding, actor inference, and action
-          clipping. It excludes physics and rendering. These are local CPU
-          measurements, not robot hardware latency.
+          Timing includes preparing the observation, choosing the action and
+          limiting its size. Physics and rendering are excluded. The speedup
+          measures actor inference on the local CPU, not a complete robot loop.
         </p>
         <EvidenceLink
           href={evidenceUrl(
@@ -857,7 +871,8 @@ function Reproducibility({ manifest }) {
       label: "Two-minute reviewer guide",
       url: "/evidence/docs/REVIEWER_GUIDE.md",
       format: "MD",
-      description: "A short path through the question, experiments, and scope.",
+      description:
+        "What to watch, what to compare, and how to read the results.",
     },
     {
       label: "Experiment methodology",
@@ -870,13 +885,13 @@ function Reproducibility({ manifest }) {
       label: "Strict completion protocol",
       url: "/evidence/docs/PRECISION.md",
       format: "MD",
-      description: "Containment, release, stationary hold, and attribution.",
+      description: "The 8 mm geometry rule, release check and one-second hold.",
     },
     {
       label: "Every completion result",
       url: "/evidence/results/precision_finish/evaluation.json",
       format: "JSON",
-      description: "All 520 saved trials, including the remaining failures.",
+      description: "Outcomes for all 520 saved trials, including failures.",
     },
     {
       label: "Evidence audit",
@@ -902,30 +917,29 @@ function Reproducibility({ manifest }) {
     files.push({
       ...actor,
       format: actor.format || (actor.url.endsWith(".npz") ? "NPZ" : "ZIP"),
-      description:
-        "Included policy weights, ready for inspection and reproduction.",
+      description: "The saved weights used by the policy experiments.",
     });
   return (
     <section className="rp-reproduce" id="reproducibility">
       <div className="rp-reproduce-intro">
         <span className="rp-eyebrow">Review the evidence</span>
         <h2>
-          Inspectable.
+          Follow a result
           <br />
-          Reproducible.
+          back to its source.
         </h2>
         <p>
-          Every reported result has a protocol, a saved checkpoint, or a
-          recorded trace behind it. Start with the guide; follow a result back
-          to its source.
+          Start with the two-minute guide, then inspect the protocol, weights
+          and traces behind a result. The evidence includes unsuccessful runs
+          and experiments that made performance worse.
         </p>
         <div className="rp-scope-note">
           <span className="rp-eyebrow">Scope of this submission</span>
           <p>
-            State-based policies in planar MuJoCo tasks. Exact simulator
-            positions are inputs. The terminal precision controller is
-            hand-coded. Hardware transfer and image or language-conditioned
-            control are future work.
+            The policies use exact simulator positions to control planar MuJoCo
+            tasks. The final precision controller is hand-coded. This study does
+            not evaluate hardware or policies that take images or language as
+            inputs.
           </p>
         </div>
       </div>
@@ -1015,14 +1029,15 @@ function ResearchPanels({ manifest }) {
           <div>
             <span className="rp-eyebrow">Research notebook / 01</span>
             <h2>
-              A small dataset.
-              <br />A traceable learning system.
+              From a home recording
+              <br />
+              to a robot push.
             </h2>
           </div>
           <p>
-            The graphics above make the task visible. The work below explains
-            where the policy comes from, how it transfers, and what the evidence
-            supports.
+            Follow the recordings through four experiments: adapting contact
+            geometry, training with reinforcement learning, predicting object
+            motion and running the same actor faster.
           </p>
         </div>
         <RecordingStrip manifest={manifest} />

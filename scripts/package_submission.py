@@ -35,7 +35,7 @@ def main():
                 'src/pushbridge/precision.py', 'results/precision_finish/evaluation.json',
                 'results/precision_finish/video_verification.json', 'results/submission_audit.json',
                 'docs/WEB_APP.md', 'web/package.json', 'web/pnpm-lock.yaml', 'web/index.html',
-                'web/preview.png', 'web/public/data/manifest.json',
+                'web/preview.jpg', 'web/public/data/manifest.json',
                 'web/public/data/export-verification.json', 'scripts/export_web_data.py'}
     if not required.issubset(files):
         raise RuntimeError(f'Missing required deliverables: {sorted(required-set(files))}')

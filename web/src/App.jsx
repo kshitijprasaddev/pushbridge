@@ -23,10 +23,39 @@ const prefixes = {
   contact: "source_contact",
   postRL: "posttrained",
 };
+const EXAMPLES = [
+  {
+    id: "direct",
+    title: "Transfer unchanged",
+    note: "An old policy meets a narrower tool.",
+    strategy: "direct",
+    seed: 1,
+    trial: 0,
+    mode: "policy",
+  },
+  {
+    id: "contact",
+    title: "Adapt the contact",
+    note: "Same task. Same weights. New geometry.",
+    strategy: "contact",
+    seed: 1,
+    trial: 0,
+    mode: "policy",
+  },
+  {
+    id: "failure",
+    title: "Find the RL failure",
+    note: "Extra training still leaves a missed finish.",
+    strategy: "postRL",
+    seed: 2,
+    trial: 3,
+    mode: "finish",
+  },
+];
 const cache = new Map();
 async function loadJSON(url, signal) {
   if (cache.has(url)) return cache.get(url);
-  const r = await fetch(url, { signal });
+  const r = await fetch(url, { signal, cache: "no-cache" });
   if (!r.ok) throw new Error(`Could not load saved evidence (${r.status}).`);
   const value = await r.json();
   cache.set(url, value);
@@ -95,8 +124,8 @@ function ErrorPlot({ policy, finish, trace, position }) {
       <div className="plot-caption">
         <span>DISTANCE TO GOAL</span>
         <div>
-          <span className="legend policy">Policy</span>
-          <span className="legend finish">With finish controller</span>
+          <span className="legend policy">Policy alone</span>
+          <span className="legend finish">With feedback</span>
         </div>
       </div>
       <svg
@@ -239,6 +268,23 @@ export default function App() {
   const runID = `${prefixes[strategy]}_seed${seed}${mode === "finish" ? "_finish" : ""}`;
   const run = manifest?.runs[runID],
     trace = pair?.[mode];
+  const finalDistance = trace
+    ? distanceMM(trace.state[trace.state.length - 1], trace.goal)
+    : 0;
+  const finalMeaning = trace
+    ? trace.result.success
+      ? "The object stays fully inside for the required one-second hold."
+      : finalDistance <= 8
+        ? "The object ends inside, but the required stationary hold is unfinished."
+        : "The object ends outside the region for full containment."
+    : "Choose a recorded task to inspect its outcome.";
+  const activeExample = EXAMPLES.find(
+    (e) =>
+      e.strategy === strategy &&
+      e.seed === seed &&
+      e.trial === trial &&
+      e.mode === mode,
+  );
   const current = trace ? sampleTrace(trace, position) : null;
   const distance = current ? distanceMM(current.state, trace.goal) : 0,
     clearance = 8 - distance;
@@ -330,10 +376,17 @@ export default function App() {
     setPlaying((p) => !p);
   }
   function failure() {
-    setStrategy("postRL");
-    setSeed(2);
-    setTrial(3);
-    setMode("finish");
+    selectExample(EXAMPLES[2]);
+  }
+  function selectExample(example) {
+    if (pair && activeExample?.id === example.id) {
+      setPosition(pair[example.mode].state.length - 1);
+    }
+    setStrategy(example.strategy);
+    setSeed(example.seed);
+    setTrial(example.trial);
+    setMode(example.mode);
+    setPlaying(false);
     document.getElementById("lab").scrollIntoView({ behavior: "smooth" });
   }
   const fresh = manifest?.suites.fresh.results;
@@ -383,25 +436,53 @@ export default function App() {
         <section className="introduction">
           <div>
             <div className="eyebrow">
-              <span className="tiny-square" /> DEMONSTRATION TO EMBODIMENT /
-              STUDY 001
+              <span className="tiny-square" /> PERSONAL DEMONSTRATIONS / ROBOT
+              LEARNING
             </div>
             <h1>
-              Human demonstrations.
+              From five videos.
               <br />
-              <span>Robot precision.</span>
+              <span>To robot control.</span>
             </h1>
           </div>
           <div className="intro-aside">
             <p>
-              Five home recordings. A different robot. A policy that learns to
-              make contact, then a controller that finishes the task.
+              Push the red object fully inside the green circle. The policy
+              starts with fingertip demonstrations. A shorter arm and a narrower
+              tool test what transfers, and what still needs feedback.
             </p>
             <div className="intro-meta">
               <span>PERSONAL DATA</span>
               <span>MuJoCo + SAC</span>
               <span>REPRODUCIBLE</span>
             </div>
+          </div>
+        </section>
+        <section
+          className="guided-comparisons"
+          aria-label="Start with three recorded comparisons"
+        >
+          <div className="guide-caption">
+            <span className="tiny-square" /> START WITH THREE COMPARISONS{" "}
+            <span>Click a result, then replay it.</span>
+          </div>
+          <div className="guide-options">
+            {EXAMPLES.map((example, i) => (
+              <button
+                key={example.id}
+                aria-pressed={activeExample?.id === example.id}
+                disabled={!manifest}
+                className={activeExample?.id === example.id ? "active" : ""}
+                onClick={() => selectExample(example)}
+              >
+                <span className="guide-number">0{i + 1}</span>
+                <span>
+                  <strong>{example.title}</strong>
+                  <small>{example.note}</small>
+                </span>
+                <Icon name="arrow" size={16} />
+              </button>
+            ))}
           </div>
         </section>
         <section
@@ -414,7 +495,7 @@ export default function App() {
             <div>
               <span className="live-dot" /> ROBOT WORKSPACE{" "}
               <span className="lab-divider">/</span>{" "}
-              <span className="muted">COMPACT 3R</span>
+              <span className="muted">THREE-JOINT ARM</span>
             </div>
             <div className="lab-heading-right">
               <span>SAVED PHYSICS, INTERACTIVE VIEW</span>
@@ -465,7 +546,7 @@ export default function App() {
                 <div className="scene-label">
                   <span>PB-03</span>
                   <small>
-                    REDUNDANT PLANAR MANIPULATOR
+                    THREE JOINTS / PLANAR PUSHING
                     <br />
                     240 / 170 / 130 mm
                   </small>
@@ -528,6 +609,7 @@ export default function App() {
                   }
                 >
                   <Icon name={playing ? "pause" : "play"} size={18} />
+                  <span>{playing ? "Pause" : "Replay"}</span>
                 </button>
                 <button
                   className="icon-button"
@@ -603,7 +685,7 @@ export default function App() {
             </div>
             <aside className="experiment-controls">
               <div className="control-title">
-                <span>01 / POLICY STRATEGY</span>
+                <span>01 / HOW THE ROBOT APPROACHES</span>
                 <span className="light-label">SAC</span>
               </div>
               <div className="strategy-options">
@@ -627,7 +709,7 @@ export default function App() {
                             ? "Original policy, different arm"
                             : s.id === "contact"
                               ? "Same weights, adapted contact"
-                              : "20k target-arm SAC interactions"}
+                              : "20,000 extra robot training steps"}
                         </small>
                       </span>
                       <span className="strategy-score">
@@ -656,12 +738,12 @@ export default function App() {
               </div>
               <p className="mode-note">
                 {mode === "finish"
-                  ? "Learned actions until 30 mm from goal. Classical feedback aligns, pushes, releases and verifies."
-                  : "The learned policy runs on its own. Success still requires full containment and the one-second hold."}
+                  ? "The policy approaches. Within 30 mm, a hand-coded controller makes the final push, releases contact, and checks the hold."
+                  : "The learned policy chooses every movement. It must finish entirely inside the circle and hold there for one second."}
               </p>
               <div className="run-selectors">
                 <label>
-                  MODEL SEED
+                  TRAINING SEED
                   <select
                     value={seed}
                     onChange={(e) => setSeed(Number(e.target.value))}
@@ -687,9 +769,13 @@ export default function App() {
                   </select>
                 </label>
               </div>
+              <p className="selector-help">
+                A seed is an independent training run. Each strategy gets the
+                same 20 starting conditions.
+              </p>
               <div className="control-rule" />
               <div className="control-title">
-                <span>02 / CONTACT TELEMETRY</span>
+                <span>02 / DOES THE OBJECT FIT?</span>
                 <label className="trace-toggle">
                   <input
                     type="checkbox"
@@ -706,7 +792,7 @@ export default function App() {
                     {current ? distance.toFixed(1) : "0.0"}
                     <small>mm</small>
                   </strong>
-                  <span>CONTAINMENT MARGIN</span>
+                  <span>SPACE TO THE BOUNDARY</span>
                   <strong className={clearance >= 0 ? "positive" : "negative"}>
                     {clearance >= 0 ? "+" : ""}
                     {current ? clearance.toFixed(1) : "0.0"}
@@ -759,12 +845,60 @@ export default function App() {
             </aside>
           </div>
         </section>
+        <section
+          className="case-reading"
+          aria-live="polite"
+          aria-label="Explanation of the selected recorded result"
+        >
+          <div className="case-title">
+            <span className="eyebrow">READ THIS RESULT</span>
+            <h3>
+              {strategy === "direct"
+                ? "Transfer without a contact correction"
+                : strategy === "contact"
+                  ? "Correct the contact, keep the policy"
+                  : "Adapt the policy with more robot training"}
+            </h3>
+            <p>
+              {strategy === "direct"
+                ? "The source policy keeps its weights and sees uncorrected contact distances on the narrower tool."
+                : strategy === "contact"
+                  ? "The adapter rescales tool-to-object distance using their radii. The learned weights are unchanged."
+                  : "The adapted policy receives 20,000 more SAC training steps on this arm. The saved failure shows why more training is not a guarantee."}
+            </p>
+          </div>
+          <div className="case-outcome">
+            <span>
+              RECORDED ENDPOINT / TASK {String(trial + 1).padStart(2, "0")} /
+              SEED {seed}
+            </span>
+            <strong>
+              {loading ? "Loading" : `${finalDistance.toFixed(1)} mm`}
+              <small>centre error · must be ≤ 8 mm</small>
+            </strong>
+            <p>
+              {loading ? "Loading the saved result." : finalMeaning}{" "}
+              {mode === "finish"
+                ? "This run includes the hand-coded finish controller."
+                : "This run uses the policy alone."}
+            </p>
+            <button
+              disabled={!pair || loading}
+              onClick={() => setMode(mode === "finish" ? "policy" : "finish")}
+            >
+              {mode === "finish"
+                ? "Compare policy alone"
+                : "Compare with precision feedback"}
+              <Icon name="arrow" size={15} />
+            </button>
+          </div>
+        </section>
         <div className="evidence-strip">
           <p>
             <span className="tiny-square" />{" "}
-            <strong>Every movement has a source.</strong> The 3D view
-            interpolates saved 10 Hz states and joints. MuJoCo generated the
-            contacts.
+            <strong>Recorded physics, rendered in 3D.</strong> MuJoCo simulated
+            the contacts. This viewer replays saved positions and joints; it
+            does not run a new experiment.
           </p>
           <button onClick={failure}>
             Inspect a failed transfer <Icon name="arrow" size={16} />

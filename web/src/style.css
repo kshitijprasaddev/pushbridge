@@ -222,6 +222,135 @@ h1 span {
   background: var(--panel);
   scroll-margin-top: 25px;
 }
+.guided-comparisons {
+  margin-bottom: 22px;
+}
+.guide-caption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #a6b4a9;
+  font:
+    9px "IBM Plex Mono",
+    monospace;
+  letter-spacing: 0.7px;
+  margin-bottom: 12px;
+}
+.guide-caption > span:last-child {
+  margin-left: auto;
+  color: #8e9c95;
+  font:
+    11px "Inter Variable",
+    sans-serif;
+  letter-spacing: 0;
+}
+.guide-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.guide-options button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  border: 1px solid #394247;
+  border-radius: 6px;
+  padding: 16px;
+  background: #171d20;
+  transition:
+    border-color 0.18s,
+    background 0.18s;
+}
+.guide-options button:hover,
+.guide-options button.active {
+  border-color: #91a864;
+  background: #20291f;
+}
+.guide-number {
+  font:
+    11px "IBM Plex Mono",
+    monospace;
+  color: var(--lime);
+}
+.guide-options strong {
+  font-size: 12px;
+  font-weight: 500;
+}
+.guide-options small {
+  display: block;
+  font-size: 10px;
+  line-height: 1.4;
+  margin-top: 5px;
+  color: #9ea9a5;
+}
+.guide-options button > svg {
+  margin-left: auto;
+  color: #a3b191;
+}
+.case-reading {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 50px;
+  padding: 26px 28px;
+  border: 1px solid #35423c;
+  border-radius: 6px;
+  margin-top: 16px;
+  background: linear-gradient(110deg, #1a211f, #151b1d);
+}
+.case-title h3 {
+  font-size: 20px;
+  font-weight: 450;
+  letter-spacing: -0.5px;
+  margin-top: 12px;
+}
+.case-reading p {
+  color: #a9b5ac;
+  font-size: 12px;
+  line-height: 1.65;
+  margin-top: 10px;
+  max-width: 450px;
+}
+.case-outcome > span {
+  color: #a9b79f;
+  font:
+    8px "IBM Plex Mono",
+    monospace;
+  letter-spacing: 0.6px;
+}
+.case-outcome > strong {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 12px;
+  font:
+    27px "IBM Plex Mono",
+    monospace;
+  color: var(--lime);
+  margin-top: 9px;
+}
+.case-outcome > strong small {
+  color: #9caaa2;
+  font:
+    10px "Inter Variable",
+    sans-serif;
+}
+.case-outcome button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--lime);
+  background: transparent;
+  padding: 0;
+  font-size: 11px;
+  margin-top: 13px;
+}
+.selector-help {
+  color: #94a59c;
+  font-size: 10px;
+  line-height: 1.5;
+  margin-top: 10px;
+}
 .lab-heading {
   height: 49px;
   padding: 0 19px;
@@ -442,12 +571,15 @@ h1 span {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
+  width: auto;
   height: 32px;
-  border-radius: 50%;
+  border-radius: 5px;
   background: var(--lime);
   color: #182319;
   flex-shrink: 0;
+  padding: 0 10px;
+  gap: 5px;
+  font-size: 10px;
 }
 .scrubber {
   flex: 1;
@@ -657,7 +789,7 @@ h1 span {
   color: #d9f97a;
 }
 .mode-note {
-  font-size: 10px;
+  font-size: 11px;
   line-height: 1.5;
   color: #96a5a3;
   margin: 11px 0 17px;
@@ -753,7 +885,7 @@ h1 span {
   height: 104px;
 }
 .size-note {
-  font-size: 9px;
+  font-size: 10px;
   line-height: 1.5;
   color: #879793;
   margin-top: 12px;
@@ -1106,6 +1238,23 @@ h1 span {
   }
 }
 @media (max-width: 1050px) {
+  .guide-options button {
+    padding: 13px 10px;
+    gap: 8px;
+  }
+  .guide-options strong {
+    font-size: 11px;
+  }
+  .guide-options small {
+    font-size: 9px;
+  }
+  .guide-options button > svg {
+    display: none;
+  }
+  .case-reading {
+    gap: 26px;
+    padding: 24px;
+  }
   .site-header nav {
     margin-right: 15px;
     gap: 20px;
@@ -1160,6 +1309,42 @@ h1 span {
   }
 }
 @media (max-width: 760px) {
+  .guide-caption {
+    flex-wrap: wrap;
+    font-size: 8px;
+  }
+  .guide-caption > span:last-child {
+    margin-left: 13px;
+    width: 100%;
+    font-size: 10px;
+  }
+  .guide-options {
+    grid-template-columns: 1fr;
+    gap: 7px;
+  }
+  .guide-options button {
+    padding: 12px 14px;
+    gap: 13px;
+  }
+  .guide-options strong {
+    font-size: 12px;
+  }
+  .guide-options small {
+    font-size: 10px;
+    margin-top: 3px;
+  }
+  .guide-options button > svg {
+    display: block;
+  }
+  .case-reading {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    padding: 22px;
+  }
+  .case-outcome {
+    border-top: 1px solid #3a453d;
+    padding-top: 20px;
+  }
   html {
     scroll-padding-top: 20px;
   }
@@ -1275,7 +1460,9 @@ h1 span {
   }
   .play-button {
     height: 29px;
-    width: 29px;
+    width: auto;
+    padding: 0 7px;
+    font-size: 9px;
   }
   .clock {
     font-size: 8px;
@@ -1305,6 +1492,7 @@ h1 span {
   .mode-selector,
   .mode-note,
   .run-selectors,
+  .selector-help,
   .control-rule {
     grid-column: 1/-1;
   }

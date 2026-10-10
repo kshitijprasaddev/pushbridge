@@ -2,26 +2,30 @@
 
 **From five home videos to contact-aware robot control in MuJoCo.**
 
+[Source repository](https://github.com/kshitijprasaddev/pushbridge) · [Vercel setup](docs/WEB_APP.md#deploy-to-vercel)
+
 A finger pushes a red cap into a drawn circle. This project extracts those motions, uses them to initialize a learned policy, and transfers the policy to a robot with different joints, tool geometry and object dynamics. It also learns object-motion predictions and exports a faster actor.
 
 **Start with the [3D research app](docs/WEB_APP.md), the [two-minute evidence guide](docs/REVIEWER_GUIDE.md), or the [complete experiment details](docs/EXPERIMENTS.md).** The main app uses React, Vite and Three.js. It builds to a static site that can be deployed on Vercel.
 
-![Three.js replay of a recorded MuJoCo task](web/preview.png)
+![Three.js replay of a recorded MuJoCo task](web/preview.jpg)
 
 ## Open the demo
 
-The saved results are included. You can build the app without installing Python or retraining the policies. With Node 22.12 or newer and pnpm available:
+The saved results are included. You can build the app without installing Python or retraining the policies. Use Node 24.x. These commands select the pinned package manager, so a global pnpm installation is optional:
 
 ```bash
 cd web
-pnpm install --frozen-lockfile
-pnpm dev
+npx --yes pnpm@11.25.0 install --frozen-lockfile
+npx --yes pnpm@11.25.0 dev
 # Open the local URL printed by Vite.
 ```
 
 Select a transfer strategy, switch between policy alone and policy plus feedback, then replay or scrub a task. The 3D arm follows recorded joint angles; the object follows recorded positions. Three.js renders the scene, while MuJoCo produced the underlying physics traces. The browser does not run a new policy rollout.
 
-For a production build, run `pnpm build` and `pnpm preview` from `web/`. See [frontend setup, evidence export and Vercel deployment](docs/WEB_APP.md). The earlier [offline report](index.html) and all experiment reports remain in the repository for direct inspection.
+For a production build, run `npx --yes pnpm@11.25.0 build` and `npx --yes pnpm@11.25.0 preview` from `web/`. The earlier [offline report](index.html) and all experiment reports remain in the repository for direct inspection.
+
+To host the app on Vercel, import this repository and set **Root Directory to `web`**. The included `web/vercel.json` selects Vite, the pinned pnpm install and build commands, and the `dist` output directory. Node 24.x is selected by `web/package.json`. The exported replay data, videos and downloads are already inside `web/public`; the deployment needs no Python environment, API keys or GPU service. See [the deployment steps](docs/WEB_APP.md#deploy-to-vercel).
 
 ## What is actually learned?
 
@@ -36,11 +40,11 @@ For a production build, run `pnpm build` and `pnpm preview` from `web/`. See [fr
 
 The robot policy takes **simulator positions**, not images or language. The world model predicts **states**, with future tool actions supplied. This is a state-based robot-learning study, not an end-to-end VLA or generative video model.
 
-## Why the old videos stopped too early
+## Define a complete push
 
 The original success rule was a centre error below 18 mm. The target radius is 20 mm; the puck radius is 12 mm. To fit the entire puck, the centre error must be **at most 20 − 12 = 8 mm**. At 18 mm, the puck can protrude 10 mm outside the target.
 
-The original results remain unchanged. A separate follow-up removes the early stop and requires full containment throughout a one-second stationary hold. The checkpoints are unchanged. An additional comparison adds the same hand-coded precision feedback to each approach policy.
+The stricter evaluation removes that early stop and requires full containment throughout a one-second stationary hold. It uses the same learned checkpoints. A second comparison adds the same hand-coded precision feedback to each approach policy, so its contribution can be measured separately.
 
 | Compact 3R approach | Policy alone, strict rule | With precision feedback, strict rule |
 | --- | --- | --- |
