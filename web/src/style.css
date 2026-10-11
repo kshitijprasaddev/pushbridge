@@ -799,6 +799,36 @@ h1 span {
   display: flex;
   gap: 10px;
 }
+.training-version {
+  display: block;
+  margin: 15px 0;
+  color: #a5b5a7;
+  font:
+    9px "IBM Plex Mono",
+    monospace;
+  letter-spacing: 0.4px;
+}
+.training-version select {
+  display: block;
+  width: 100%;
+  margin: 8px 0;
+  padding: 10px 7px;
+  border: 1px solid #556348;
+  border-radius: 3px;
+  background: #28312b;
+  color: #e0edcf;
+  font:
+    11px Inter,
+    sans-serif;
+}
+.training-version small {
+  display: block;
+  font:
+    11px/1.5 Inter,
+    sans-serif;
+  letter-spacing: 0;
+  color: #a3b0a8;
+}
 .run-selectors label {
   font:
     8px "IBM Plex Mono",
@@ -1489,6 +1519,7 @@ h1 span {
   }
   .experiment-controls > .control-title:first-child,
   .strategy-options,
+  .training-version,
   .mode-selector,
   .mode-note,
   .run-selectors,
@@ -1561,6 +1592,7 @@ h1 span {
   .run-actions {
     grid-column: 1/-1;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
     gap: 20px;
   }

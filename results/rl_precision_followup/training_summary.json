@@ -1,0 +1,210 @@
+{
+  "models": [
+    {
+      "variant": "longer_original",
+      "seed": 0,
+      "parent_checkpoint": "results/embodiment_transfer/posttrained_seed0/sac.zip",
+      "parent_sha256": "072381aa483f024b520d4e1c1fb39d68ce040c496d963ef922da40d93be51c76",
+      "checkpoint_sha256": "3bf8a869af22c425d6232e49f690bcb33cc7a808a956622442b5dfdaf2fc2378",
+      "source_training_decisions": 40000,
+      "target_training_decisions_before": 20000,
+      "new_target_training_decisions": 40000,
+      "target_training_decisions_total": 60000,
+      "previous_target_hold_control_steps": 4040,
+      "new_training_hold_control_steps": 10300,
+      "new_training_control_steps": 50300,
+      "elapsed_seconds_including_validation": 107.15391001399985,
+      "validation_seed": 7131,
+      "replay": "New empty replay; original frozen checkpoints did not include replay data.",
+      "transferred": "Actor, critics, entropy parameter and optimizer states from original20k target checkpoint.",
+      "hyperparameters": {
+        "learning_rate": 0.00015,
+        "batch_size": 128,
+        "train_freq": 4,
+        "gradient_steps": 1,
+        "buffer_size": 100000,
+        "learning_starts": 1000,
+        "gamma": 0.99,
+        "tau": 0.005,
+        "net_arch": [
+          64,
+          64
+        ]
+      },
+      "selection": "Final fixed-budget checkpoint; no intermediate checkpoint chosen.",
+      "reward_change": "None: original18mm terminal objective retained."
+    },
+    {
+      "variant": "strict_objective",
+      "seed": 0,
+      "parent_checkpoint": "results/embodiment_transfer/posttrained_seed0/sac.zip",
+      "parent_sha256": "072381aa483f024b520d4e1c1fb39d68ce040c496d963ef922da40d93be51c76",
+      "checkpoint_sha256": "e75ec988204473c36f2ce092a10a012d9dc3e911bd98d4a031525277caf5035f",
+      "source_training_decisions": 40000,
+      "target_training_decisions_before": 20000,
+      "new_target_training_decisions": 40000,
+      "target_training_decisions_total": 60000,
+      "previous_target_hold_control_steps": 4040,
+      "new_training_hold_control_steps": 3630,
+      "new_training_control_steps": 43630,
+      "elapsed_seconds_including_validation": 101.54391104600018,
+      "validation_seed": 7131,
+      "replay": "New empty replay; original frozen checkpoints did not include replay data.",
+      "transferred": "Actor, critics, entropy parameter and optimizer states from original20k target checkpoint.",
+      "hyperparameters": {
+        "learning_rate": 0.00015,
+        "batch_size": 128,
+        "train_freq": 4,
+        "gradient_steps": 1,
+        "buffer_size": 100000,
+        "learning_starts": 1000,
+        "gamma": 0.99,
+        "tau": 0.005,
+        "net_arch": [
+          64,
+          64
+        ]
+      },
+      "selection": "Final fixed-budget checkpoint; no intermediate checkpoint chosen.",
+      "reward_change": "Only terminal success predicate changes from final18mm distance to <=8mm throughout10holdticks."
+    },
+    {
+      "variant": "longer_original",
+      "seed": 1,
+      "parent_checkpoint": "results/embodiment_transfer/posttrained_seed1/sac.zip",
+      "parent_sha256": "7983a5ea30d6cd4983020ccc0523ed7ad97f6ee6b8c5667c6c1f2a88a2db90f6",
+      "checkpoint_sha256": "c880926ad452e8bfcc3e4db5d819b7611e3bcb01b002c875409097ae99450fd2",
+      "source_training_decisions": 40000,
+      "target_training_decisions_before": 20000,
+      "new_target_training_decisions": 40000,
+      "target_training_decisions_total": 60000,
+      "previous_target_hold_control_steps": 5000,
+      "new_training_hold_control_steps": 11130,
+      "new_training_control_steps": 51130,
+      "elapsed_seconds_including_validation": 108.43697757399968,
+      "validation_seed": 7131,
+      "replay": "New empty replay; original frozen checkpoints did not include replay data.",
+      "transferred": "Actor, critics, entropy parameter and optimizer states from original20k target checkpoint.",
+      "hyperparameters": {
+        "learning_rate": 0.00015,
+        "batch_size": 128,
+        "train_freq": 4,
+        "gradient_steps": 1,
+        "buffer_size": 100000,
+        "learning_starts": 1000,
+        "gamma": 0.99,
+        "tau": 0.005,
+        "net_arch": [
+          64,
+          64
+        ]
+      },
+      "selection": "Final fixed-budget checkpoint; no intermediate checkpoint chosen.",
+      "reward_change": "None: original18mm terminal objective retained."
+    },
+    {
+      "variant": "strict_objective",
+      "seed": 1,
+      "parent_checkpoint": "results/embodiment_transfer/posttrained_seed1/sac.zip",
+      "parent_sha256": "7983a5ea30d6cd4983020ccc0523ed7ad97f6ee6b8c5667c6c1f2a88a2db90f6",
+      "checkpoint_sha256": "86bba230850b078af23445405facc3d687c392d5d92cc80ed2519e3179aaa08f",
+      "source_training_decisions": 40000,
+      "target_training_decisions_before": 20000,
+      "new_target_training_decisions": 40000,
+      "target_training_decisions_total": 60000,
+      "previous_target_hold_control_steps": 5000,
+      "new_training_hold_control_steps": 8660,
+      "new_training_control_steps": 48660,
+      "elapsed_seconds_including_validation": 102.94887075600036,
+      "validation_seed": 7131,
+      "replay": "New empty replay; original frozen checkpoints did not include replay data.",
+      "transferred": "Actor, critics, entropy parameter and optimizer states from original20k target checkpoint.",
+      "hyperparameters": {
+        "learning_rate": 0.00015,
+        "batch_size": 128,
+        "train_freq": 4,
+        "gradient_steps": 1,
+        "buffer_size": 100000,
+        "learning_starts": 1000,
+        "gamma": 0.99,
+        "tau": 0.005,
+        "net_arch": [
+          64,
+          64
+        ]
+      },
+      "selection": "Final fixed-budget checkpoint; no intermediate checkpoint chosen.",
+      "reward_change": "Only terminal success predicate changes from final18mm distance to <=8mm throughout10holdticks."
+    },
+    {
+      "variant": "longer_original",
+      "seed": 2,
+      "parent_checkpoint": "results/embodiment_transfer/posttrained_seed2/sac.zip",
+      "parent_sha256": "6cd9fd1e77feb544c7fd040434b97e64cd25e10992343576108bdc51a36dffbe",
+      "checkpoint_sha256": "f6529e7b137e54837021f4fcf2a7796402047f257d1bb9290c0c7ef41f7d5d06",
+      "source_training_decisions": 40000,
+      "target_training_decisions_before": 20000,
+      "new_target_training_decisions": 40000,
+      "target_training_decisions_total": 60000,
+      "previous_target_hold_control_steps": 3960,
+      "new_training_hold_control_steps": 10830,
+      "new_training_control_steps": 50830,
+      "elapsed_seconds_including_validation": 103.33792777800045,
+      "validation_seed": 7131,
+      "replay": "New empty replay; original frozen checkpoints did not include replay data.",
+      "transferred": "Actor, critics, entropy parameter and optimizer states from original20k target checkpoint.",
+      "hyperparameters": {
+        "learning_rate": 0.00015,
+        "batch_size": 128,
+        "train_freq": 4,
+        "gradient_steps": 1,
+        "buffer_size": 100000,
+        "learning_starts": 1000,
+        "gamma": 0.99,
+        "tau": 0.005,
+        "net_arch": [
+          64,
+          64
+        ]
+      },
+      "selection": "Final fixed-budget checkpoint; no intermediate checkpoint chosen.",
+      "reward_change": "None: original18mm terminal objective retained."
+    },
+    {
+      "variant": "strict_objective",
+      "seed": 2,
+      "parent_checkpoint": "results/embodiment_transfer/posttrained_seed2/sac.zip",
+      "parent_sha256": "6cd9fd1e77feb544c7fd040434b97e64cd25e10992343576108bdc51a36dffbe",
+      "checkpoint_sha256": "f9671cd972544a4bc1f516327ff596d8800e9bf8a0a48d6f8b7e272c1384605d",
+      "source_training_decisions": 40000,
+      "target_training_decisions_before": 20000,
+      "new_target_training_decisions": 40000,
+      "target_training_decisions_total": 60000,
+      "previous_target_hold_control_steps": 3960,
+      "new_training_hold_control_steps": 7880,
+      "new_training_control_steps": 47880,
+      "elapsed_seconds_including_validation": 101.61886805700033,
+      "validation_seed": 7131,
+      "replay": "New empty replay; original frozen checkpoints did not include replay data.",
+      "transferred": "Actor, critics, entropy parameter and optimizer states from original20k target checkpoint.",
+      "hyperparameters": {
+        "learning_rate": 0.00015,
+        "batch_size": 128,
+        "train_freq": 4,
+        "gradient_steps": 1,
+        "buffer_size": 100000,
+        "learning_starts": 1000,
+        "gamma": 0.99,
+        "tau": 0.005,
+        "net_arch": [
+          64,
+          64
+        ]
+      },
+      "selection": "Final fixed-budget checkpoint; no intermediate checkpoint chosen.",
+      "reward_change": "Only terminal success predicate changes from final18mm distance to <=8mm throughout10holdticks."
+    }
+  ],
+  "new_training_decisions_total": 240000,
+  "new_training_control_steps_total": 292430
+}

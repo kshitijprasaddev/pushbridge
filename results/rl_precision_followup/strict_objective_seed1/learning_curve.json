@@ -1,0 +1,34 @@
+{
+  "validation_seed": 7131,
+  "success_threshold_mm": 8,
+  "selection": "Final fixed-budget checkpoint only; validation never selects weights.",
+  "rows": [
+    {
+      "additional_training_decisions": 0,
+      "target_training_decisions_total": 20000,
+      "new_training_hold_control_steps": 0,
+      "elapsed_seconds_including_validation": 0.022307381999780773,
+      "successes": 10,
+      "episodes": 10,
+      "mean_final_distance_mm": 6.287467602764831
+    },
+    {
+      "additional_training_decisions": 20000,
+      "target_training_decisions_total": 40000,
+      "new_training_hold_control_steps": 3840,
+      "elapsed_seconds_including_validation": 48.48370233500009,
+      "successes": 10,
+      "episodes": 10,
+      "mean_final_distance_mm": 6.477622024377948
+    },
+    {
+      "additional_training_decisions": 40000,
+      "target_training_decisions_total": 60000,
+      "new_training_hold_control_steps": 8660,
+      "elapsed_seconds_including_validation": 102.38792431000002,
+      "successes": 10,
+      "episodes": 10,
+      "mean_final_distance_mm": 6.221405133284089
+    }
+  ]
+}

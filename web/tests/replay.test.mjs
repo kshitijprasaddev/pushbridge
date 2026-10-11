@@ -32,7 +32,7 @@ test("world-to-renderer transform preserves handedness and physical lengths", ()
   );
 });
 
-test("all 360 visible replays retain endpoint, physical geometry, and verified holds", () => {
+test("all visible replays retain endpoint, physical geometry, and verified holds", () => {
   let count = 0,
     maximumFKResidual = 0;
   for (const run of Object.values(manifest.runs)) {
@@ -73,11 +73,47 @@ test("all 360 visible replays retain endpoint, physical geometry, and verified h
     }
     assert.equal(successes, run.summary.successes);
   }
-  assert.equal(count, 360);
+  const originalCount = Object.entries(manifest.runs)
+    .filter(([name]) => !/^(longer_original|strict_objective)_/.test(name))
+    .reduce((sum, [, run]) => sum + run.trials.length, 0);
+  assert.equal(originalCount, 360);
+  assert.equal(count, manifest.rlFollowup ? 600 : 360);
+  if (manifest.rlFollowup)
+    assert.equal(
+      count - originalCount,
+      manifest.rlFollowup.pairedReplaysExported,
+    );
   assert.ok(
     maximumFKResidual < 0.161,
     `Recorded MuJoCo site/joint timing residual ${maximumFKResidual} mm exceeds measured bound`,
   );
+});
+
+test("longer training keeps the original failure and separates learned from feedback completion", () => {
+  if (!manifest.rlFollowup) return;
+  const old = manifest.runs.posttrained_seed2.trials[3];
+  const longer = manifest.runs.longer_original_seed2.trials[3];
+  const finished = manifest.runs.longer_original_seed2_finish.trials[3];
+  assert.equal(old.success, false);
+  assert.equal(longer.success, false);
+  assert.equal(finished.success, true);
+  assert.ok(old.final_distance_mm > 100);
+  assert.ok(longer.final_distance_mm > 8 && longer.final_distance_mm < 12);
+  assert.ok(finished.final_distance_mm < 8);
+  for (const seed of [0, 1, 2]) {
+    assert.equal(
+      manifest.rlFollowup.suites.paired.results[`original_20k_seed${seed}`]
+        .successes,
+      manifest.runs[`posttrained_seed${seed}`].summary.successes,
+    );
+    for (const variant of ["longer_original", "strict_objective"]) {
+      assert.equal(
+        manifest.rlFollowup.suites.paired.results[`${variant}_seed${seed}`]
+          .successes,
+        manifest.runs[`${variant}_seed${seed}`].summary.successes,
+      );
+    }
+  }
 });
 
 test("the difficult RL failure stays accessible and is not declared complete", () => {

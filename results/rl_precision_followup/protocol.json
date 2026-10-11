@@ -1,0 +1,125 @@
+{
+  "question": "Is extra SAC training enough, or must the terminal objective match full containment?",
+  "decision_date": "2026-10-11",
+  "original_evidence_preserved": true,
+  "parent_checkpoints": {
+    "0": {
+      "path": "results/embodiment_transfer/posttrained_seed0/sac.zip",
+      "sha256": "072381aa483f024b520d4e1c1fb39d68ce040c496d963ef922da40d93be51c76"
+    },
+    "1": {
+      "path": "results/embodiment_transfer/posttrained_seed1/sac.zip",
+      "sha256": "7983a5ea30d6cd4983020ccc0523ed7ad97f6ee6b8c5667c6c1f2a88a2db90f6"
+    },
+    "2": {
+      "path": "results/embodiment_transfer/posttrained_seed2/sac.zip",
+      "sha256": "6cd9fd1e77feb544c7fd040434b97e64cd25e10992343576108bdc51a36dffbe"
+    }
+  },
+  "variants": {
+    "original_20k": {
+      "new_training_decisions": 0,
+      "target_decisions_total": 20000,
+      "objective": "Original18mm final hold endpoint"
+    },
+    "longer_original": {
+      "new_training_decisions": 40000,
+      "target_decisions_total": 60000,
+      "objective": "Unchanged18mm final hold endpoint"
+    },
+    "strict_objective": {
+      "new_training_decisions": 40000,
+      "target_decisions_total": 60000,
+      "objective": "8mm at entry and throughout all10zero-action holdticks"
+    }
+  },
+  "training_seeds": [
+    0,
+    1,
+    2
+  ],
+  "source_training_decisions_per_model": 40000,
+  "added_decisions_total": 240000,
+  "replay": "Each branch starts with empty robot-physics replay; parent checkpoints omitted replay.",
+  "reward": "Same compact_potential progress -0.01; +10 stable success; -5 outside. Strict branch changes terminal success predicate only.",
+  "reset_distribution": "Unchanged CompactGym: uniform puck/goal ranges, tool40mm behind puck plus2mm noise, friction0.15/0.25/0.40.",
+  "observation": "Four contact-normalised relative-state floats from MuJoCo; no vision or language.",
+  "action": "Canonical 2D action divided by4/3 contact scale; same joint slew/bounds.",
+  "embodiment": {
+    "name": "Compact 3R",
+    "link_lengths_m": [
+      0.24,
+      0.17,
+      0.13
+    ],
+    "joint_ranges_rad": [
+      [
+        -1.3,
+        1.3
+      ],
+      [
+        0.05,
+        2.75
+      ],
+      [
+        -1.6,
+        1.6
+      ]
+    ],
+    "max_command_joint_speed_rad_s": 0.25,
+    "tip_radius_m": 0.003,
+    "puck_radius_m": 0.012,
+    "puck_mass_kg": 0.05,
+    "servo_kp": 2200,
+    "servo_kv": 30,
+    "solver": "Damped least squares with joint bounds, command slew limits and a null-space posture preference"
+  },
+  "contact_scale": 1.3333333333333335,
+  "validation": {
+    "seed": 7131,
+    "cases": 10,
+    "interval_added_decisions": 20000,
+    "use": "Diagnostic curves only; final fixed checkpoint, no selection or tuning."
+  },
+  "suites": {
+    "paired": {
+      "seed": 2027,
+      "cases": 20,
+      "status": "Previously inspected cases, retained for paired comparison"
+    },
+    "fresh": {
+      "seed": 11939,
+      "cases": 20,
+      "status": "Newly declared seed, not previously used for evaluation or tuning"
+    }
+  },
+  "evaluation": {
+    "model_seeds": [
+      0,
+      1,
+      2
+    ],
+    "modes": [
+      "policy_only",
+      "with_existing_finisher"
+    ],
+    "decision_budget": 120,
+    "fit_distance_mm": 8,
+    "hold_ticks": 10,
+    "baselines": [
+      "Original20k target SAC",
+      "Feedback-only controller"
+    ],
+    "hold": "Ten zero-action physics ticks; all saved states remain inside. Extra holdticks counted separately.",
+    "release": "Explicit hand-coded release only in finisher and feedback baseline; policy-only uses automatic benchmark hold."
+  },
+  "selection": "Train all six final fixed-budget models before evaluating paired or fresh cases; retain every result including regressions.",
+  "limitations": [
+    "Small20case suites; repeated models are not independent task cases",
+    "Fresh suite is an in-distribution sample, not new tasks or embodiments",
+    "Exact simulator state; no perception, language, hardware or VLA claim",
+    "Strict objective was motivated after seeing original failures",
+    "Finisher remains engineered state feedback; zero-action hold is benchmark logic",
+    "Additional budget alone cannot guarantee improvement; all outcomes reported"
+  ]
+}

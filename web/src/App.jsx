@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef, lazy, Suspense } from "react";
 const RobotScene = lazy(() => import("./RobotScene.jsx"));
 const ResearchPanels = lazy(() => import("./ResearchPanels.jsx"));
+const RLFollowup = lazy(() => import("./RLFollowup.jsx"));
 import { distanceMM, sampleTrace } from "./kinematics.mjs";
+import { evidenceViewerUrl, replaySelection } from "./evidenceRoutes.mjs";
 
 const PHASES = {
   start: ["Initial state", "A single reset places the object and robot."],
@@ -247,12 +249,16 @@ function Containment({ state, goal }) {
   );
 }
 export default function App() {
+  const initial = useRef(replaySelection(location.search)).current;
   const [manifest, setManifest] = useState(null),
     [fatal, setFatal] = useState("");
-  const [strategy, setStrategy] = useState("contact"),
-    [seed, setSeed] = useState(1),
-    [trial, setTrial] = useState(0),
-    [mode, setMode] = useState("finish");
+  const [strategy, setStrategy] = useState(initial?.strategy || "contact"),
+    [trainingVersion, setTrainingVersion] = useState(
+      initial?.trainingVersion || "original",
+    ),
+    [seed, setSeed] = useState(initial?.seed ?? 1),
+    [trial, setTrial] = useState(initial?.trial ?? 0),
+    [mode, setMode] = useState(initial?.mode || "finish");
   const [pair, setPair] = useState(null),
     [loading, setLoading] = useState(true),
     [position, setPosition] = useState(0),
@@ -265,7 +271,14 @@ export default function App() {
   const stageRef = useRef(null);
   const modeRef = useRef(mode);
   modeRef.current = mode;
-  const runID = `${prefixes[strategy]}_seed${seed}${mode === "finish" ? "_finish" : ""}`;
+  const rlPrefix =
+    trainingVersion === "longer"
+      ? "longer_original"
+      : trainingVersion === "strict"
+        ? "strict_objective"
+        : "posttrained";
+  const selectedPrefix = strategy === "postRL" ? rlPrefix : prefixes[strategy];
+  const runID = `${selectedPrefix}_seed${seed}${mode === "finish" ? "_finish" : ""}`;
   const run = manifest?.runs[runID],
     trace = pair?.[mode];
   const finalDistance = trace
@@ -281,6 +294,7 @@ export default function App() {
   const activeExample = EXAMPLES.find(
     (e) =>
       e.strategy === strategy &&
+      (strategy !== "postRL" || trainingVersion === "original") &&
       e.seed === seed &&
       e.trial === trial &&
       e.mode === mode,
@@ -293,9 +307,20 @@ export default function App() {
   const phase = trace
     ? PHASES[trace.phase[current.index]] || PHASES.policy
     : PHASES.start;
-  const videoEvidence = manifest?.evidence.videos.find(
-    (v) => v.strategy === strategy && v.mode === mode,
-  );
+  const videoEvidence =
+    manifest?.evidence.videos.find(
+      (v) =>
+        v.run === `${selectedPrefix}_seed${seed}` &&
+        v.mode === mode &&
+        v.trial === trial,
+    ) ||
+    manifest?.evidence.videos.find(
+      (v) =>
+        !v.run &&
+        v.strategy === strategy &&
+        v.mode === mode &&
+        (trainingVersion === "original" || strategy !== "postRL"),
+    );
   useEffect(() => {
     loadJSON("/data/manifest.json")
       .then(setManifest)
@@ -307,7 +332,7 @@ export default function App() {
     setLoading(true);
     setPlaying(false);
     setPair(null);
-    const base = `${prefixes[strategy]}_seed${seed}`;
+    const base = `${selectedPrefix}_seed${seed}`;
     Promise.all(
       ["policy", "finish"].map((m) =>
         loadJSON(
@@ -332,7 +357,7 @@ export default function App() {
         }
       });
     return () => controller.abort();
-  }, [manifest, strategy, seed, trial]);
+  }, [manifest, selectedPrefix, seed, trial]);
   useEffect(() => {
     if (pair) {
       setPlaying(false);
@@ -379,10 +404,11 @@ export default function App() {
     selectExample(EXAMPLES[2]);
   }
   function selectExample(example) {
-    if (pair && activeExample?.id === example.id) {
+    if (pair && example.id && activeExample?.id === example.id) {
       setPosition(pair[example.mode].state.length - 1);
     }
     setStrategy(example.strategy);
+    setTrainingVersion(example.trainingVersion || "original");
     setSeed(example.seed);
     setTrial(example.trial);
     setMode(example.mode);
@@ -414,6 +440,7 @@ export default function App() {
         </a>
         <nav aria-label="Main navigation">
           <a href="#lab">Interactive lab</a>
+          <a href="#mujoco">MuJoCo footage</a>
           <a href="#research">Research</a>
           <a href="#reproducibility">
             Evidence <Icon name="diagonal" size={13} />
@@ -692,7 +719,7 @@ export default function App() {
                 {manifest?.strategies.map((s, i) => {
                   const summary =
                     manifest.runs[
-                      `${s.prefix}_seed${seed}${mode === "finish" ? "_finish" : ""}`
+                      `${s.id === "postRL" ? rlPrefix : s.prefix}_seed${seed}${mode === "finish" ? "_finish" : ""}`
                     ].summary;
                   return (
                     <button
@@ -709,7 +736,7 @@ export default function App() {
                             ? "Original policy, different arm"
                             : s.id === "contact"
                               ? "Same weights, adapted contact"
-                              : "20,000 extra robot training steps"}
+                              : `${trainingVersion === "original" ? "20,000" : "60,000"} target training decisions`}
                         </small>
                       </span>
                       <span className="strategy-score">
@@ -720,6 +747,29 @@ export default function App() {
                   );
                 })}
               </div>
+              {strategy === "postRL" && manifest?.rlFollowup && (
+                <label className="training-version">
+                  RL TRAINING CHECKPOINT
+                  <select
+                    value={trainingVersion}
+                    onChange={(e) => setTrainingVersion(e.target.value)}
+                  >
+                    <option value="original">
+                      Original: 20k / 18 mm training goal
+                    </option>
+                    <option value="longer">
+                      Longer: 60k / 18 mm training goal
+                    </option>
+                    <option value="strict">
+                      Strict: 60k / 8 mm + hold training goal
+                    </option>
+                  </select>
+                  <small>
+                    Each 60k model continues the same 20k parent for 40k more
+                    decisions. The evaluation rule stays at 8 mm.
+                  </small>
+                </label>
+              )}
               <div className="mode-selector" aria-label="Controller mode">
                 <button
                   aria-pressed={mode === "policy"}
@@ -739,7 +789,7 @@ export default function App() {
               <p className="mode-note">
                 {mode === "finish"
                   ? "The policy approaches. Within 30 mm, a hand-coded controller makes the final push, releases contact, and checks the hold."
-                  : "The learned policy chooses every movement. It must finish entirely inside the circle and hold there for one second."}
+                  : "The learned policy chooses the approach movements. An automatic zero-action hold checks full containment for one second, without the precision controller."}
               </p>
               <div className="run-selectors">
                 <label>
@@ -770,8 +820,9 @@ export default function App() {
                 </label>
               </div>
               <p className="selector-help">
-                A seed is an independent training run. Each strategy gets the
-                same 20 starting conditions.
+                A seed identifies one trained model. Task 01 to 20 are separate
+                starting conditions shared by every strategy. The score above
+                counts the whole suite; the scene shows one task.
               </p>
               <div className="control-rule" />
               <div className="control-title">
@@ -829,8 +880,11 @@ export default function App() {
                     setVideo(videoEvidence);
                   }}
                 >
-                  Original physics video <Icon name="diagonal" size={14} />
+                  Watch native MuJoCo clip <Icon name="diagonal" size={14} />
                 </button>
+                <a href="#mujoco">
+                  Browse MuJoCo recordings <Icon name="arrow" size={14} />
+                </a>
                 {run && (
                   <a href={run.trials[trial].url} download>
                     Download this trace <Icon name="download" size={14} />
@@ -840,7 +894,11 @@ export default function App() {
               <span className="scope-note">
                 Scores: same 20 tasks, selected model seed.
                 <br />
-                Video: reference task 01, seed 1.
+                Video:{" "}
+                {videoEvidence?.run
+                  ? `selected task ${String(trial + 1).padStart(2, "0")}, seed ${seed}`
+                  : "reference task 01, seed 1"}
+                .
               </span>
             </aside>
           </div>
@@ -864,7 +922,11 @@ export default function App() {
                 ? "The source policy keeps its weights and sees uncorrected contact distances on the narrower tool."
                 : strategy === "contact"
                   ? "The adapter rescales tool-to-object distance using their radii. The learned weights are unchanged."
-                  : "The adapted policy receives 20,000 more SAC training steps on this arm. The saved failure shows why more training is not a guarantee."}
+                  : trainingVersion === "original"
+                    ? "The adapted policy receives 20,000 SAC training decisions on this arm. It was trained to reach an 18 mm centre error; this evaluation requires 8 mm and a stationary hold."
+                    : trainingVersion === "longer"
+                      ? "This checkpoint continues the original policy for 40,000 more SAC decisions, reaching 60,000 target decisions. It keeps the original 18 mm training goal, while this evaluation still requires 8 mm."
+                      : "This checkpoint continues the same original policy for 40,000 more SAC decisions with an 8 mm goal and a ten-tick hold check during training. The test still counts failures and does not select the best validation checkpoint."}
             </p>
           </div>
           <div className="case-outcome">
@@ -920,7 +982,7 @@ export default function App() {
           <div className="result-table-wrap">
             <div className="table-header">
               <h3>Full containment, by training seed</h3>
-              <span>20 PAIRED TASKS · 8 mm THRESHOLD</span>
+              <span>ORIGINAL CHECKPOINTS · 20 PAIRED TASKS</span>
             </div>
             <table className="results-table">
               <thead>
@@ -985,6 +1047,14 @@ export default function App() {
               <p className="research-loading">Loading research notebook</p>
             }
           >
+            {manifest.rlFollowup && (
+              <RLFollowup
+                manifest={manifest}
+                onReplay={(example) =>
+                  selectExample({ ...example, strategy: "postRL" })
+                }
+              />
+            )}
             <ResearchPanels manifest={manifest} />
           </Suspense>
         )}
@@ -998,7 +1068,7 @@ export default function App() {
           <br />
           State-based simulation policies. No robot hardware evaluation.
         </p>
-        <a href="/evidence/docs/REVIEWER_GUIDE.md">
+        <a href={evidenceViewerUrl("/evidence/docs/REVIEWER_GUIDE.md")}>
           Reviewer guide <Icon name="diagonal" size={15} />
         </a>
       </footer>
@@ -1034,9 +1104,11 @@ export default function App() {
             />
             <h3>{video.label}</h3>
             <p>
-              Reference replay: paired task 01, model seed 1. This video retains
-              the original physics renderer; the articulated lab view above
-              reconstructs saved poses.
+              {video.run
+                ? `Selected replay: paired task ${String(video.trial + 1).padStart(2, "0")}, model seed ${video.seed}.`
+                : "Reference replay: paired task 01, model seed 1."}{" "}
+              This video retains the original physics renderer; the articulated
+              lab view above reconstructs saved poses.
             </p>
             <a href={video.url} download>
               Download original video <Icon name="download" size={15} />

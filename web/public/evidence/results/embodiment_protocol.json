@@ -1,0 +1,64 @@
+{
+  "embodiment": {
+    "name": "Compact 3R",
+    "link_lengths_m": [
+      0.24,
+      0.17,
+      0.13
+    ],
+    "joint_ranges_rad": [
+      [
+        -1.3,
+        1.3
+      ],
+      [
+        0.05,
+        2.75
+      ],
+      [
+        -1.6,
+        1.6
+      ]
+    ],
+    "max_command_joint_speed_rad_s": 0.25,
+    "tip_radius_m": 0.003,
+    "puck_radius_m": 0.012,
+    "puck_mass_kg": 0.05,
+    "servo_kp": 2200,
+    "servo_kv": 30,
+    "solver": "Damped least squares with joint bounds, command slew limits and a null-space posture preference"
+  },
+  "contact_scale": 1.3333333333333335,
+  "train_seeds": [
+    0,
+    1,
+    2
+  ],
+  "adaptation_steps_per_model": 20000,
+  "source_steps_per_model": 40000,
+  "validation_seed": 7131,
+  "test_seed": 2027,
+  "test_episodes": 20,
+  "horizon": 120,
+  "success_threshold_mm": 18,
+  "success_hold_s": 1,
+  "selection": "Final fixed-budget checkpoints; no test-based selection",
+  "baselines": [
+    "absolute replay",
+    "geometry",
+    "contact-adapted geometry",
+    "contact-adapted MPC",
+    "source SAC direct",
+    "source SAC contact adapter",
+    "post-trained SAC contact adapter",
+    "compact-aware classical feedback (follow-up baseline)"
+  ],
+  "limitations": [
+    "Compact planar 3R, not a humanoid or full 3D manipulator",
+    "No vision/language inputs to the policy",
+    "Only three training seeds and twenty paired task cases",
+    "Post-training receives extra simulator data; frozen transfer has no target training",
+    "Known tool radius is engineered embodiment information"
+  ],
+  "followup_baseline_note": "CompactGeometry was implemented after the initial comparison, inspected on validation seed 7131, and retained as an additional baseline. Original results are preserved."
+}

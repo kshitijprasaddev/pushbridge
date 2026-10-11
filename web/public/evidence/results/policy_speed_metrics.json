@@ -1,0 +1,485 @@
+{
+  "protocol": {
+    "model_sha256": "720bb4f3d6cbafa5cb8f8ce1317a6b3fb3a7198da8f75c1cc64de9837ed7e70f",
+    "thread_count_torch": 2,
+    "warmup_calls_per_method": 100,
+    "blocks": 30,
+    "calls_per_method_per_block": 100,
+    "order": "alternate methods by block, fixed observations shuffled by seed 871",
+    "timed_scope": "Full policy.act(state, goal), including observation encoding and action norm clipping; no physics/rendering",
+    "trace_check_seed": 2026,
+    "trace_check_episodes": 20,
+    "method": "Float32 deterministic actor export, no retraining/quantisation",
+    "platform": "Linux-6.14.0-37-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3",
+    "numpy": "1.26.4",
+    "torch": "2.9.0+cpu"
+  },
+  "export": {
+    "layers": [
+      4,
+      64,
+      64,
+      2
+    ],
+    "precision": "float32",
+    "parameters": 4610,
+    "method": "Export deterministic mean actor; two ReLU layers and tanh output; remove training/distribution wrappers",
+    "file_bytes": 18449
+  },
+  "latency": {
+    "sb3_predict": {
+      "calls": 3000,
+      "p50_ms": 0.1747655,
+      "p95_ms": 0.22853854999999995,
+      "block_medians_ms": [
+        0.17656,
+        0.18861050000000001,
+        0.18561850000000002,
+        0.1767725,
+        0.1929265,
+        0.1712605,
+        0.1745495,
+        0.17451899999999998,
+        0.1722405,
+        0.1810165,
+        0.17435699999999998,
+        0.1792765,
+        0.2023215,
+        0.174895,
+        0.175067,
+        0.1924385,
+        0.178927,
+        0.163986,
+        0.16306749999999998,
+        0.178144,
+        0.174149,
+        0.1680975,
+        0.1645075,
+        0.174794,
+        0.176995,
+        0.1664905,
+        0.1681375,
+        0.17242849999999998,
+        0.1680895,
+        0.16251749999999998
+      ]
+    },
+    "torch_direct": {
+      "calls": 3000,
+      "p50_ms": 0.044563500000000006,
+      "p95_ms": 0.059590699999999996,
+      "block_medians_ms": [
+        0.051141,
+        0.0444525,
+        0.045574500000000004,
+        0.039613999999999996,
+        0.0471545,
+        0.044755500000000004,
+        0.049718,
+        0.0433785,
+        0.0462715,
+        0.043733499999999995,
+        0.046476500000000004,
+        0.0424965,
+        0.060894500000000004,
+        0.0519425,
+        0.039580000000000004,
+        0.0451945,
+        0.0440875,
+        0.049097,
+        0.042586,
+        0.039696,
+        0.0429485,
+        0.0443645,
+        0.043923500000000004,
+        0.043885499999999994,
+        0.044094,
+        0.043324,
+        0.040528,
+        0.0421825,
+        0.043558,
+        0.039066000000000004
+      ]
+    },
+    "numpy_actor": {
+      "calls": 3000,
+      "p50_ms": 0.0229055,
+      "p95_ms": 0.0313433,
+      "block_medians_ms": [
+        0.0226065,
+        0.0224585,
+        0.027658500000000003,
+        0.026182,
+        0.024826,
+        0.0206615,
+        0.0258175,
+        0.021226500000000002,
+        0.0196915,
+        0.0205845,
+        0.02442,
+        0.022634,
+        0.0275395,
+        0.0282305,
+        0.023206,
+        0.020311000000000003,
+        0.021406500000000002,
+        0.027755500000000002,
+        0.021247500000000002,
+        0.021686999999999998,
+        0.021145999999999998,
+        0.020824,
+        0.021585,
+        0.024445,
+        0.022823,
+        0.0231465,
+        0.022795,
+        0.022917,
+        0.0223145,
+        0.020615
+      ]
+    }
+  },
+  "p50_speedup": 7.629848726288446,
+  "paired_block_speedup_mean": 7.679180985507159,
+  "paired_block_bootstrap_95pct_interval": [
+    7.403513889145058,
+    7.9482358747042765
+  ],
+  "observed_states": 713,
+  "max_action_vector_difference_m": 2.634178031930877e-09,
+  "all_success_outcomes_match": true,
+  "max_trace_position_vector_difference_mm": 5.702102194874251,
+  "torch_direct_p50_speedup": 3.9217184467108726,
+  "torch_direct_bit_identical_all_actions_and_states": true,
+  "traces": [
+    {
+      "trial": 0,
+      "reference_success": true,
+      "optimized_success": true,
+      "reference_control_steps": 36,
+      "optimized_control_steps": 36,
+      "max_tool_and_object_position_vector_difference_mm": 4.18226619272638,
+      "reference_final_mm": 14.190276113003753,
+      "optimized_final_mm": 15.35506332857575
+    },
+    {
+      "trial": 1,
+      "reference_success": true,
+      "optimized_success": true,
+      "reference_control_steps": 37,
+      "optimized_control_steps": 36,
+      "max_tool_and_object_position_vector_difference_mm": 5.494589666736387,
+      "reference_final_mm": 14.728545423822203,
+      "optimized_final_mm": 15.081847780303905
+    },
+    {
+      "trial": 2,
+      "reference_success": true,
+      "optimized_success": true,
+      "reference_control_steps": 34,
+      "optimized_control_steps": 34,
+      "max_tool_and_object_position_vector_difference_mm": 0.48476745090582385,
+      "reference_final_mm": 12.11097167895147,
+      "optimized_final_mm": 12.308969262968859
+    },
+    {
+      "trial": 3,
+      "reference_success": true,
+      "optimized_success": true,
+      "reference_control_steps": 37,
+      "optimized_control_steps": 37,
+      "max_tool_and_object_position_vector_difference_mm": 0.029071411455214767,
+      "reference_final_mm": 12.037002701202464,
+      "optimized_final_mm": 12.06596459147078
+    },
+    {
+      "trial": 4,
+      "reference_success": true,
+      "optimized_success": true,
+      "reference_control_steps": 38,
+      "optimized_control_steps": 38,
+      "max_tool_and_object_position_vector_difference_mm": 0.4729880707619561,
+      "reference_final_mm": 12.356941784912552,
+      "optimized_final_mm": 12.581188605189476
+    },
+    {
+      "trial": 5,
+      "reference_success": true,
+      "optimized_success": true,
+      "reference_control_steps": 28,
+      "optimized_control_steps": 28,
+      "max_tool_and_object_position_vector_difference_mm": 0.48134207599602497,
+      "reference_final_mm": 15.982426473240844,
+      "optimized_final_mm": 15.90530683564053
+    },
+    {
+      "trial": 6,
+      "reference_success": true,
+      "optimized_success": true,
+      "reference_control_steps": 36,
+      "optimized_control_steps": 36,
+      "max_tool_and_object_position_vector_difference_mm": 4.470173388597802,
+      "reference_final_mm": 14.786068019197307,
+      "optimized_final_mm": 13.41020838162591
+    },
+    {
+      "trial": 7,
+      "reference_success": true,
+      "optimized_success": true,
+      "reference_control_steps": 34,
+      "optimized_control_steps": 34,
+      "max_tool_and_object_position_vector_difference_mm": 2.1527353879406328e-05,
+      "reference_final_mm": 10.805331658535415,
+      "optimized_final_mm": 10.805320362368985
+    },
+    {
+      "trial": 8,
+      "reference_success": true,
+      "optimized_success": true,
+      "reference_control_steps": 34,
+      "optimized_control_steps": 34,
+      "max_tool_and_object_position_vector_difference_mm": 3.443676603735256,
+      "reference_final_mm": 16.514880265725022,
+      "optimized_final_mm": 16.423871327220787
+    },
+    {
+      "trial": 9,
+      "reference_success": true,
+      "optimized_success": true,
+      "reference_control_steps": 37,
+      "optimized_control_steps": 37,
+      "max_tool_and_object_position_vector_difference_mm": 0.42998957176081876,
+      "reference_final_mm": 17.21402686808252,
+      "optimized_final_mm": 17.277487057531904
+    },
+    {
+      "trial": 10,
+      "reference_success": true,
+      "optimized_success": true,
+      "reference_control_steps": 34,
+      "optimized_control_steps": 34,
+      "max_tool_and_object_position_vector_difference_mm": 0.6905042518637582,
+      "reference_final_mm": 14.182730821568901,
+      "optimized_final_mm": 14.469514013674106
+    },
+    {
+      "trial": 11,
+      "reference_success": true,
+      "optimized_success": true,
+      "reference_control_steps": 27,
+      "optimized_control_steps": 27,
+      "max_tool_and_object_position_vector_difference_mm": 3.6979469594110563,
+      "reference_final_mm": 16.79118767546019,
+      "optimized_final_mm": 14.992296744379605
+    },
+    {
+      "trial": 12,
+      "reference_success": true,
+      "optimized_success": true,
+      "reference_control_steps": 37,
+      "optimized_control_steps": 37,
+      "max_tool_and_object_position_vector_difference_mm": 5.702102194874251,
+      "reference_final_mm": 13.380614856719156,
+      "optimized_final_mm": 15.351239045472232
+    },
+    {
+      "trial": 13,
+      "reference_success": true,
+      "optimized_success": true,
+      "reference_control_steps": 38,
+      "optimized_control_steps": 39,
+      "max_tool_and_object_position_vector_difference_mm": 4.231520797153497,
+      "reference_final_mm": 17.018184695209357,
+      "optimized_final_mm": 14.725695438870245
+    },
+    {
+      "trial": 14,
+      "reference_success": true,
+      "optimized_success": true,
+      "reference_control_steps": 31,
+      "optimized_control_steps": 31,
+      "max_tool_and_object_position_vector_difference_mm": 2.6907837560081873,
+      "reference_final_mm": 15.68971117427874,
+      "optimized_final_mm": 15.265228981558778
+    },
+    {
+      "trial": 15,
+      "reference_success": true,
+      "optimized_success": true,
+      "reference_control_steps": 34,
+      "optimized_control_steps": 34,
+      "max_tool_and_object_position_vector_difference_mm": 1.271721750398217,
+      "reference_final_mm": 17.398145463170742,
+      "optimized_final_mm": 16.599482665023018
+    },
+    {
+      "trial": 16,
+      "reference_success": true,
+      "optimized_success": true,
+      "reference_control_steps": 36,
+      "optimized_control_steps": 36,
+      "max_tool_and_object_position_vector_difference_mm": 0.1581525488506111,
+      "reference_final_mm": 13.093701277138123,
+      "optimized_final_mm": 12.935768095934826
+    },
+    {
+      "trial": 17,
+      "reference_success": true,
+      "optimized_success": true,
+      "reference_control_steps": 34,
+      "optimized_control_steps": 34,
+      "max_tool_and_object_position_vector_difference_mm": 2.33355601505493,
+      "reference_final_mm": 15.20581803449392,
+      "optimized_final_mm": 15.947497595999494
+    },
+    {
+      "trial": 18,
+      "reference_success": true,
+      "optimized_success": true,
+      "reference_control_steps": 38,
+      "optimized_control_steps": 38,
+      "max_tool_and_object_position_vector_difference_mm": 0.028524479737156716,
+      "reference_final_mm": 12.208340174270635,
+      "optimized_final_mm": 12.18180508285155
+    },
+    {
+      "trial": 19,
+      "reference_success": true,
+      "optimized_success": true,
+      "reference_control_steps": 33,
+      "optimized_control_steps": 33,
+      "max_tool_and_object_position_vector_difference_mm": 7.587107681348963e-06,
+      "reference_final_mm": 13.812232035490547,
+      "optimized_final_mm": 13.81223531880547
+    }
+  ],
+  "torch_direct_traces": [
+    {
+      "trial": 0,
+      "success": true,
+      "bit_identical_actions": true,
+      "bit_identical_states": true
+    },
+    {
+      "trial": 1,
+      "success": true,
+      "bit_identical_actions": true,
+      "bit_identical_states": true
+    },
+    {
+      "trial": 2,
+      "success": true,
+      "bit_identical_actions": true,
+      "bit_identical_states": true
+    },
+    {
+      "trial": 3,
+      "success": true,
+      "bit_identical_actions": true,
+      "bit_identical_states": true
+    },
+    {
+      "trial": 4,
+      "success": true,
+      "bit_identical_actions": true,
+      "bit_identical_states": true
+    },
+    {
+      "trial": 5,
+      "success": true,
+      "bit_identical_actions": true,
+      "bit_identical_states": true
+    },
+    {
+      "trial": 6,
+      "success": true,
+      "bit_identical_actions": true,
+      "bit_identical_states": true
+    },
+    {
+      "trial": 7,
+      "success": true,
+      "bit_identical_actions": true,
+      "bit_identical_states": true
+    },
+    {
+      "trial": 8,
+      "success": true,
+      "bit_identical_actions": true,
+      "bit_identical_states": true
+    },
+    {
+      "trial": 9,
+      "success": true,
+      "bit_identical_actions": true,
+      "bit_identical_states": true
+    },
+    {
+      "trial": 10,
+      "success": true,
+      "bit_identical_actions": true,
+      "bit_identical_states": true
+    },
+    {
+      "trial": 11,
+      "success": true,
+      "bit_identical_actions": true,
+      "bit_identical_states": true
+    },
+    {
+      "trial": 12,
+      "success": true,
+      "bit_identical_actions": true,
+      "bit_identical_states": true
+    },
+    {
+      "trial": 13,
+      "success": true,
+      "bit_identical_actions": true,
+      "bit_identical_states": true
+    },
+    {
+      "trial": 14,
+      "success": true,
+      "bit_identical_actions": true,
+      "bit_identical_states": true
+    },
+    {
+      "trial": 15,
+      "success": true,
+      "bit_identical_actions": true,
+      "bit_identical_states": true
+    },
+    {
+      "trial": 16,
+      "success": true,
+      "bit_identical_actions": true,
+      "bit_identical_states": true
+    },
+    {
+      "trial": 17,
+      "success": true,
+      "bit_identical_actions": true,
+      "bit_identical_states": true
+    },
+    {
+      "trial": 18,
+      "success": true,
+      "bit_identical_actions": true,
+      "bit_identical_states": true
+    },
+    {
+      "trial": 19,
+      "success": true,
+      "bit_identical_actions": true,
+      "bit_identical_states": true
+    }
+  ],
+  "limitations": [
+    "Local CPU measurements, not edge-hardware measurements",
+    "Float32 arithmetic order changes rounding; not bit-identical",
+    "Optimization targets the standard SB3 prediction wrapper; the controller and simulator still take time",
+    "Thirty timing blocks are repeated measurements on one machine, not independent hardware samples"
+  ]
+}

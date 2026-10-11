@@ -1,6 +1,6 @@
 # Experiment details
 
-These sections describe the original 18 mm centre-distance benchmarks. The separate [precision follow-up](PRECISION.md) uses an 8 mm whole-object criterion and leaves these original results unchanged. Start with the [reviewer guide](REVIEWER_GUIDE.md) for a shorter tour.
+These sections describe the original 18 mm centre-distance benchmarks. The separate [precision evaluation](PRECISION.md) uses an 8 mm whole-object criterion. The [longer SAC comparison](../results/rl_precision_followup/README.md) continues each original compact-arm checkpoint for another 40,000 decisions under two terminal objectives. Both additions leave the original results unchanged. Start with the [reviewer guide](REVIEWER_GUIDE.md) for a shorter tour.
 
 **Five personal phone recordings → contact-space policies → two robot embodiments in MuJoCo.**
 
@@ -90,6 +90,12 @@ A **contact-radius adapter** multiplies tool-object displacement by `(12 + 8)/(1
 
 **Retargeting helps; extra target RL does not improve this suite.** Direct-transfer seed 1 stalls close to the success threshold, so the apparently large success-count change should be read alongside the modest distance change. Target post-training seed 2 creates a substantial failure in trial 3, ending 111.6 mm from the goal. Both failure replays exactly reproduce recorded physics states. [Protocol](../results/embodiment_transfer/protocol.json) · [All trials](../results/embodiment_transfer/evaluation.json)
 
+## 3a. Extend target training under two terminal objectives
+
+The later [longer-training comparison](../results/rl_precision_followup/README.md) tests whether budget or the original 18 mm training objective explains strict misses. Each original 20k compact-arm checkpoint receives two sibling +40k continuations, keeping the old objective or training for 8 mm with a full ten-tick hold. Hyperparameters and reset distribution stay the same. The original checkpoints contain no replay buffer, so both branches start with an empty buffer while preserving actor, critic and optimizer state.
+
+Final fixed-budget weights are evaluated on the original paired seed 2027 and newly declared fresh seed 11939, with and without the unchanged finisher. Learned-only paired counts change from 6/19/16 to 18/18/17 with the original objective and 14/19/17 with the strict objective. Fresh counts are 9/19/16, 19/19/19 and 19/18/18 respectively. Every count has denominator 20. Both new hybrids achieve 20/20 in all seeds and both suites; learned-only completion still fails, and the strict objective is not universally better. The 760 new traces, six final weights, validation curves and budget accounting are included with a separate audit.
+
 ## 4. Inspect action-conditioned state predictions
 
 The three-member world model is trained exclusively on personal tracks. It learns displacement gains and contact range inside an explicitly engineered rotation-equivariant contact structure.
@@ -166,4 +172,4 @@ The source runs consumed 240,000 training decisions; compact adaptation adds 60,
 
 See [design details](DESIGN.md), [validation](VALIDATION.md), and [the home recording guide](RECORDING.md). Earlier synthetic smoke checks and the hand-coded single-video follower are archived separately; they are not learned-policy results.
 
-This repository is prepared locally. The challenge requests a **public GitHub repository** and submission through its application form; neither publication nor application submission is automated here. Review the original recordings before public publication. Code is MIT licensed; the applicant controls the recording rights.
+The project is published at [kshitijprasaddev/pushbridge](https://github.com/kshitijprasaddev/pushbridge), with a [live research app](https://pushbridge.vercel.app/). Application submission is handled by the applicant. Code is MIT licensed; the applicant controls the recording rights.

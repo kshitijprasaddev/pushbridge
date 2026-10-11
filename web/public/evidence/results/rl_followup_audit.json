@@ -1,0 +1,46 @@
+{
+  "status": "pass",
+  "scope": "Follow-up trace/checkpoint/budget verification; no training or rendering.",
+  "protocol_sha256": "0ee7756b75fab7798780d3212ffb90a7fd3d88bcc90d62c52b4372f5fcbaf714",
+  "trace_count": 760,
+  "successful_traces": 696,
+  "original_baseline_traces_bit_identical": 120,
+  "max_joint_forward_kinematics_residual_mm": 0.15528469288384483,
+  "new_training_decisions_total": 240000,
+  "new_training_control_steps_total": 292430,
+  "checkpoints": {
+    "longer_original_seed0": {
+      "sha256": "3bf8a869af22c425d6232e49f690bcb33cc7a808a956622442b5dfdaf2fc2378",
+      "bytes": 253974
+    },
+    "strict_objective_seed0": {
+      "sha256": "e75ec988204473c36f2ce092a10a012d9dc3e911bd98d4a031525277caf5035f",
+      "bytes": 253973
+    },
+    "longer_original_seed1": {
+      "sha256": "c880926ad452e8bfcc3e4db5d819b7611e3bcb01b002c875409097ae99450fd2",
+      "bytes": 253974
+    },
+    "strict_objective_seed1": {
+      "sha256": "86bba230850b078af23445405facc3d687c392d5d92cc80ed2519e3179aaa08f",
+      "bytes": 253973
+    },
+    "longer_original_seed2": {
+      "sha256": "f6529e7b137e54837021f4fcf2a7796402047f257d1bb9290c0c7ef41f7d5d06",
+      "bytes": 253974
+    },
+    "strict_objective_seed2": {
+      "sha256": "f9671cd972544a4bc1f516327ff596d8800e9bf8a0a48d6f8b7e272c1384605d",
+      "bytes": 253973
+    }
+  },
+  "checks": [
+    "Frozen parent hashes",
+    "Six final models with 40k added decisions each and 240k total decision accounting",
+    "Trace/action/state/joint shapes and limits",
+    "Strict containment during every successful hold",
+    "Exact paired starts, goals and friction match declared trial seeds",
+    "Four explicit release steps for hand-coded finisher successes",
+    "All 120 paired original-baseline traces bit-identical to frozen evidence"
+  ]
+}

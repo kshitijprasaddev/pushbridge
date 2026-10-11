@@ -25,6 +25,8 @@ jobs:
         run: python -m pytest -q
       - name: Verify included evidence
         run: python scripts/audit_submission.py
+      - name: Verify longer RL comparison
+        run: python scripts/audit_rl_followup.py
   web:
     runs-on: ubuntu-latest
     defaults:

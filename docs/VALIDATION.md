@@ -1,6 +1,6 @@
 # Validation and experimental results
 
-The five-video personal-data experiment is documented in the final section. Earlier sections preserve the sequence of software checks and single-video demonstrations; their measurements are separate from the learned personal-data results.
+The latest release checks are recorded at the end. Earlier sections preserve the sequence of software checks and single-video demonstrations; their measurements are separate from the learned personal-data results.
 
 Run date: 9 October 2026. No personally recorded videos were available. These results do **not** satisfy the challenge's personal-data constraint and do not establish human-to-robot transfer.
 
@@ -213,3 +213,15 @@ Run `python scripts/audit_submission.py` for artifact consistency checks. This a
 The React/Vite app in `web/` uses the recorded 3R joints and object positions. Its four Node tests verify physical coordinate conversion, all 360 exported trace endpoints and successful holds, the retained RL failure, and evidence asset/hash integrity. The same 20 Python tests pass. The browser checks cover perspective and contact detail, playback/reset/pause, model and task selection, native video playback, research tabs, and a 390 px phone layout with no horizontal overflow. The presentation does not run a new physics engine or policy in the browser.
 
 Five publication recording copies were remuxed without audio or location/device metadata. Full decoded-frame SHA-256 values, frame counts, frame rates and dimensions match the original files. `publication_verification.json` records the container and frame hashes. Original files are retained outside the repository; simulator checkpoints and trajectories were not modified.
+
+## Longer SAC comparison and evidence reader, 11 October 2026
+
+Six fixed-budget continuations add 40,000 SAC decisions to each of the three original target checkpoints under two terminal objectives. The total is 240,000 additional decisions and 292,430 physical control ticks, excluding validation. Actor, critic, entropy and optimizer state transfer, while replay starts empty because the parent checkpoints omitted replay data. The final checkpoint is used for every branch; validation never selects weights.
+
+The original 18 mm objective yields strict policy-only counts 18/18/17 on the paired cases and 19/19/19 on newly declared fresh seed 11939. The stricter 8 mm hold objective yields 14/19/17 and 19/18/18. Every count is out of twenty cases per seed. Both new branches with the unchanged finisher score 20/20 in every seed and both suites. The policy alone still misses some finishes; the stricter objective is not universally better.
+
+`audit_rl_followup.py` verifies all 760 follow-up traces, including 696 strict successes, six final weight hashes, training budgets, paired resets, command limits and stationary holds. All 120 paired original-baseline traces are bit-identical to the previous evidence. Three new native videos of the previously visible seed 2 Task 04 are physically re-simulated and checked against every recorded array, with maximum state difference zero.
+
+The website now exports 600 paired replays, nine native MuJoCo videos and fourteen model files. All 360 original browser replay files are byte-identical to the preceding commit. The 22 Python tests and ten Node tests pass. Frontend tests verify geometry, successful holds, asset hashes, document routing, retention of all original and new trial outcomes, and exact replay links. Production build passes with the pinned lockfile.
+
+The in-app browser checks cover the document reader, relative article links, the filtered original failure, longer policy versus longer hybrid replays, paired/fresh comparison controls, and native video metadata. A 390 × 844 layout has no page-level horizontal overflow; wide tables and document navigation scroll inside their own wrappers. All results remain simulation evidence using exact state, not a hardware or VLA evaluation.

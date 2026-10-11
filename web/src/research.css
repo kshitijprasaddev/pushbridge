@@ -28,6 +28,299 @@
   outline: 2px solid var(--rp-lime);
   outline-offset: 5px;
 }
+.rp-native {
+  width: min(1440px, 100%);
+  padding: 82px 56px 74px;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--rp-line);
+  scroll-margin-top: 70px;
+}
+.rp-native-heading {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 72px;
+  align-items: end;
+  margin-bottom: 34px;
+}
+.rp-native-heading h2 {
+  font-size: clamp(32px, 3.4vw, 49px);
+  line-height: 1.1;
+  letter-spacing: -0.045em;
+  font-weight: 450;
+  margin-top: 16px;
+  max-width: 490px;
+}
+.rp-native-heading > p {
+  color: var(--rp-muted);
+  font-size: 13px;
+  line-height: 1.75;
+  max-width: 430px;
+}
+.rp-native-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1.9fr) minmax(260px, 1fr);
+  gap: 30px;
+}
+.rp-native-player {
+  min-width: 0;
+  align-self: start;
+  border: 1px solid #3a454b;
+  background: #0a0e11;
+}
+.rp-native-player-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 18px;
+  color: var(--rp-muted);
+  border-bottom: 1px solid var(--rp-line);
+  font:
+    9px/1.6 "IBM Plex Mono",
+    monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.rp-native-player-head > span:first-child {
+  color: var(--rp-lime);
+}
+.rp-native-player video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: contain;
+  background: #0a0e11;
+}
+.rp-native-context {
+  padding: 18px 0 0;
+  min-width: 0;
+}
+.rp-native-context h3 {
+  font-size: 27px;
+  font-weight: 450;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+  margin: 11px 0 14px;
+}
+.rp-native-mode {
+  display: inline-block;
+  border: 1px solid #52643d;
+  color: var(--rp-lime);
+  background: #1c251a;
+  font:
+    9px/1.5 "IBM Plex Mono",
+    monospace;
+  padding: 7px 9px;
+}
+.rp-native-context > p {
+  color: var(--rp-muted);
+  line-height: 1.7;
+  font-size: 11px;
+  margin-top: 17px;
+}
+.rp-native-result {
+  margin-top: 22px;
+  padding: 17px 18px;
+  border: 1px solid #39432e;
+  background: #181e15;
+}
+.rp-native-result > span {
+  display: block;
+  color: var(--rp-lime);
+  font:
+    9px/1.5 "IBM Plex Mono",
+    monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.rp-native-result > strong {
+  display: block;
+  font:
+    33px/1.2 "IBM Plex Mono",
+    monospace;
+  color: var(--rp-text);
+  margin-top: 10px;
+}
+.rp-native-result > strong small {
+  font-size: 13px;
+  color: var(--rp-muted);
+}
+.rp-native-result > p {
+  color: var(--rp-muted);
+  font-size: 10px;
+  line-height: 1.65;
+  margin-top: 9px;
+}
+.rp-native-result.incomplete {
+  background: #241a18;
+  border-color: #594139;
+}
+.rp-native-result.incomplete > span {
+  color: #e3ab96;
+}
+.rp-native-context > .rp-native-reference {
+  font-size: 10px;
+  padding-left: 12px;
+  border-left: 1px solid #465057;
+}
+.rp-native-reference strong {
+  color: #c5d0d4;
+  font-weight: 450;
+}
+.rp-native-choices {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 25px;
+}
+.rp-native-choices > button {
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr);
+  gap: 14px;
+  text-align: left;
+  align-items: center;
+  border: 1px solid #333f46;
+  background: #151b1f;
+  color: var(--rp-text);
+  cursor: pointer;
+  padding: 8px;
+  min-width: 0;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+.rp-native-choices > button:hover {
+  border-color: #83925f;
+  background: #1b241c;
+}
+.rp-native-choices > button.selected {
+  border-color: var(--rp-lime);
+  background: #20281a;
+}
+.rp-native-thumbnail {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  background: #090d10;
+  overflow: hidden;
+}
+.rp-native-thumbnail img {
+  display: block;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.rp-native-play {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  background: #111a1cd9;
+  border: 1px solid #839299;
+  padding: 4px 7px;
+  color: #f4f6f1;
+  font-size: 9px;
+}
+.rp-native-choices strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 450;
+  line-height: 1.4;
+}
+.rp-native-choices button.selected strong {
+  color: var(--rp-lime);
+}
+.rp-native-choices button > div:last-child > span {
+  display: block;
+  font:
+    9px/1.6 "IBM Plex Mono",
+    monospace;
+  color: var(--rp-muted);
+  margin-top: 5px;
+}
+.rp-target-seeds {
+  grid-column: 1 / -1;
+  border-top: 1px solid var(--rp-line);
+  padding-top: 29px;
+}
+.rp-target-seeds-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 35px;
+  align-items: end;
+  margin-bottom: 24px;
+}
+.rp-target-seeds-heading h4 {
+  font-size: 23px;
+  font-weight: 450;
+  letter-spacing: -0.035em;
+  line-height: 1.25;
+  margin-top: 9px;
+  max-width: 420px;
+}
+.rp-target-seeds-heading > p {
+  color: var(--rp-muted);
+  font-size: 11px;
+  line-height: 1.75;
+  max-width: 440px;
+}
+.rp-target-seed-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+.rp-target-seed-card {
+  border: 1px solid var(--rp-line);
+  background: #151b1f;
+  padding: 18px 17px 9px;
+  min-width: 0;
+}
+.rp-target-seed-card > .rp-eyebrow {
+  color: var(--rp-lime);
+}
+.rp-target-score-head,
+.rp-target-score {
+  display: grid;
+  grid-template-columns: minmax(90px, 1.4fr) repeat(2, 1fr);
+  gap: 9px;
+  align-items: center;
+}
+.rp-target-score-head {
+  color: var(--rp-muted);
+  font:
+    8px/1.5 "IBM Plex Mono",
+    monospace;
+  padding: 18px 0 10px;
+  border-bottom: 1px solid var(--rp-line);
+}
+.rp-target-score-head > span:not(:first-child) {
+  text-align: right;
+}
+.rp-target-score {
+  border-bottom: 1px solid #283239;
+  padding: 12px 0;
+}
+.rp-target-score:last-child {
+  border: 0;
+}
+.rp-target-score > span {
+  font-size: 10px;
+  line-height: 1.5;
+}
+.rp-target-score > strong {
+  text-align: right;
+  font:
+    15px "IBM Plex Mono",
+    monospace;
+}
+.rp-target-score > strong:last-child {
+  color: var(--rp-lime);
+}
+.rp-target-seed-note {
+  color: var(--rp-muted);
+  font-size: 10px;
+  line-height: 1.7;
+  margin-top: 16px !important;
+  max-width: 950px;
+}
 .rp-research,
 .rp-reproduce {
   width: min(1440px, 100%);
@@ -899,6 +1192,34 @@
   margin-top: 15px;
 }
 @media (max-width: 1100px) {
+  .rp-native {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+  .rp-native-heading {
+    gap: 36px;
+  }
+  .rp-native-stage {
+    gap: 24px;
+    grid-template-columns: minmax(0, 1.7fr) minmax(230px, 1fr);
+  }
+  .rp-native-choices > button {
+    grid-template-columns: 78px minmax(0, 1fr);
+    gap: 10px;
+  }
+  .rp-native-choices strong {
+    font-size: 11px;
+  }
+  .rp-native-context h3 {
+    font-size: 24px;
+  }
+  .rp-target-seed-grid {
+    gap: 10px;
+  }
+  .rp-target-seed-card {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
   .rp-research,
   .rp-reproduce {
     padding-left: 32px;
@@ -934,6 +1255,42 @@
   }
 }
 @media (max-width: 800px) {
+  .rp-native {
+    padding-top: 60px;
+    padding-bottom: 54px;
+  }
+  .rp-native-heading,
+  .rp-native-stage {
+    grid-template-columns: 1fr;
+    gap: 23px;
+  }
+  .rp-native-heading h2,
+  .rp-native-heading > p {
+    max-width: 600px;
+  }
+  .rp-native-context {
+    padding-top: 0;
+  }
+  .rp-native-result {
+    margin-top: 18px;
+  }
+  .rp-native-choices > button {
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+  .rp-native-choices button > div:last-child {
+    padding: 0 3px 3px;
+  }
+  .rp-native-player video {
+    max-height: 470px;
+  }
+  .rp-target-seeds-heading {
+    display: block;
+  }
+  .rp-target-seeds-heading > p {
+    margin-top: 15px;
+    max-width: 650px;
+  }
   .rp-research {
     padding-top: 72px;
   }
@@ -996,6 +1353,49 @@
   }
 }
 @media (max-width: 580px) {
+  .rp-native {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .rp-native-heading h2 {
+    font-size: 32px;
+  }
+  .rp-native-heading > p {
+    font-size: 12px;
+  }
+  .rp-native-player-head {
+    font-size: 8px;
+    padding: 11px 12px;
+    gap: 12px;
+  }
+  .rp-native-player-head > span:last-child {
+    text-align: right;
+  }
+  .rp-native-choices {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .rp-native-choices > button {
+    padding: 6px;
+  }
+  .rp-native-choices button > div:last-child > span {
+    font-size: 8px;
+  }
+  .rp-target-seed-grid {
+    grid-template-columns: 1fr;
+  }
+  .rp-target-seed-card {
+    padding: 17px 18px 7px;
+  }
+  .rp-target-score-head {
+    font-size: 9px;
+  }
+  .rp-target-score > span {
+    font-size: 11px;
+  }
+  .rp-target-score > strong {
+    font-size: 17px;
+  }
   .rp-research,
   .rp-reproduce {
     padding-left: 20px;

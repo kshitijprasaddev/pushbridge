@@ -1,0 +1,104 @@
+{
+  "status": "passed",
+  "method": "Lossless compressed-video remux; full decoded-frame SHA-256 comparison",
+  "location_metadata_removed": true,
+  "audio_removed": true,
+  "originals_preserved_outside_repository": true,
+  "files": [
+    {
+      "file": "IMG_5670.mov",
+      "original_sha256": "0b0f66a24835a7500557e0bcb1110efddefece0da6a6b3cc75df6bda160c76e8",
+      "publication_sha256": "a4d80335ab1ccedeb93374161b419d87123be77db0786cd482a6127850e3c354",
+      "decoded_video_sha256": "20ab5196d1d04bd23449f0c657b64d47411f6ef2f49a19e7d9d22550b94c708b",
+      "original_decoded_video_sha256": "20ab5196d1d04bd23449f0c657b64d47411f6ef2f49a19e7d9d22550b94c708b",
+      "metadata_keys": [
+        "major_brand",
+        "minor_version",
+        "compatible_brands",
+        "encoder"
+      ],
+      "frame_count_fps_width_height": [
+        437.0,
+        29.996567898409793,
+        1440.0,
+        1920.0
+      ]
+    },
+    {
+      "file": "Video.mov",
+      "original_sha256": "1e1d707398302266ed2b86e04a495f3fb89d9a0aa60a40215ac997932093e5d8",
+      "publication_sha256": "6846edb7d93525a213772f3e62167eedbb328bc56159c2564359d536af2f947a",
+      "decoded_video_sha256": "a8c3a7bdb425c114f73af67645b3d82eb0731cd57282ab0d53e62f10e84a05f7",
+      "original_decoded_video_sha256": "a8c3a7bdb425c114f73af67645b3d82eb0731cd57282ab0d53e62f10e84a05f7",
+      "metadata_keys": [
+        "major_brand",
+        "minor_version",
+        "compatible_brands",
+        "encoder"
+      ],
+      "frame_count_fps_width_height": [
+        271.0,
+        30.0,
+        360.0,
+        480.0
+      ]
+    },
+    {
+      "file": "Video_1.mov",
+      "original_sha256": "4c8bfba296fa1ed564f745b2cd83b631bc3db512bf375a5682c66f9d291d45c1",
+      "publication_sha256": "9c67a1432af8b3e337edd8a7a6f8b7f96ee7de4317674c6f47cbcb36013355ad",
+      "decoded_video_sha256": "3a59e912282986d98d459df198a2dc76a5fda69887467db6317dcbc0960363aa",
+      "original_decoded_video_sha256": "3a59e912282986d98d459df198a2dc76a5fda69887467db6317dcbc0960363aa",
+      "metadata_keys": [
+        "major_brand",
+        "minor_version",
+        "compatible_brands",
+        "encoder"
+      ],
+      "frame_count_fps_width_height": [
+        217.0,
+        30.0,
+        360.0,
+        480.0
+      ]
+    },
+    {
+      "file": "Video_2.mov",
+      "original_sha256": "a871639517c5c809fa3157fb5788ef451997043d924c9a725623a5cf6db55114",
+      "publication_sha256": "36c71bbc66388c1b3513dfb5e5badb4b289d60c0fe41c86718937a49f189bcca",
+      "decoded_video_sha256": "c8bb2f657d9677a225c6eaaa2ef1e865433205f186c1922e6ebbc9593ad4b1ae",
+      "original_decoded_video_sha256": "c8bb2f657d9677a225c6eaaa2ef1e865433205f186c1922e6ebbc9593ad4b1ae",
+      "metadata_keys": [
+        "major_brand",
+        "minor_version",
+        "compatible_brands",
+        "encoder"
+      ],
+      "frame_count_fps_width_height": [
+        135.0,
+        30.01111522786217,
+        360.0,
+        480.0
+      ]
+    },
+    {
+      "file": "Video_3.mov",
+      "original_sha256": "3be09d22eda81f43e93baf6ece1f2c51a4a0884d8114f4b85ddde2acf0cc2c22",
+      "publication_sha256": "3551f1be66d4ba4f95be4a990317d462466239658096fbc01ff6103ad2125f68",
+      "decoded_video_sha256": "f2a1812135b92e11ee712bdb4a079cd7ebc88e2c41ce981089b775a82a349515",
+      "original_decoded_video_sha256": "f2a1812135b92e11ee712bdb4a079cd7ebc88e2c41ce981089b775a82a349515",
+      "metadata_keys": [
+        "major_brand",
+        "minor_version",
+        "compatible_brands",
+        "encoder"
+      ],
+      "frame_count_fps_width_height": [
+        230.0,
+        30.0,
+        360.0,
+        480.0
+      ]
+    }
+  ]
+}

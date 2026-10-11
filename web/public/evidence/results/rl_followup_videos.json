@@ -1,0 +1,114 @@
+{
+  "selection": "Illustrative paired seed2 Task04, chosen because it was a previously visible original failure; no new model or checkpoint was selected using this case.",
+  "scope": "Native MuJoCo rendering of physically re-simulated saved runs. No animation scripting, object attachment or changed physics.",
+  "suite": "paired",
+  "evaluation_seed": 2027,
+  "model_seed": 2,
+  "trial": 3,
+  "task": 4,
+  "all_followup_trials_retained": 760,
+  "videos": [
+    {
+      "id": "original_20k_seed2",
+      "run": "original_20k_seed2",
+      "title": "Original RL, 20k decisions",
+      "description": "The original policy misses the target on this previously recorded failure. Exact MuJoCo state is supplied to the actor.",
+      "file": "results/rl_precision_followup/videos/original_20k_seed2.mp4",
+      "poster": "results/rl_precision_followup/videos/original_20k_seed2.jpg",
+      "file_sha256": "5bc4075b97e3f98e054157247095bccaaf4a0323b23b161dd5ac09e7daee6444",
+      "poster_sha256": "b5b432f73e0428f43be472e5db9bdcadaf5555b0192db39e00f9e331c74c8b7e",
+      "source": {
+        "checkpoint": "results/embodiment_transfer/posttrained_seed2/sac.zip",
+        "checkpoint_sha256": "6cd9fd1e77feb544c7fd040434b97e64cd25e10992343576108bdc51a36dffbe",
+        "trace": "results/rl_precision_followup/paired/original_20k_seed2_003.npz",
+        "trace_sha256": "ac06daa3c780fabe1e5b3a72c705256da2531b5f3951acdc91a06ad3f31e0bce"
+      },
+      "suite": "paired",
+      "evaluation_seed": 2027,
+      "model_seed": 2,
+      "trial": 3,
+      "task": 4,
+      "success": false,
+      "final_distance_mm": 111.58353765057865,
+      "simulation_duration_s": 12.0,
+      "final_image_display_seconds": 2,
+      "frame_rate": 10,
+      "resolution": [
+        960,
+        640
+      ],
+      "verification": {
+        "all_states_actions_joints_and_phases_bit_identical": true,
+        "max_state_difference": 0.0
+      }
+    },
+    {
+      "id": "longer_original_seed2",
+      "run": "longer_original_seed2",
+      "title": "Longer RL, 60k decisions",
+      "description": "Another 40k decisions with the same 18 mm training objective brings the puck closer. This case still fails the stricter 8 mm containment rule.",
+      "file": "results/rl_precision_followup/videos/longer_original_seed2.mp4",
+      "poster": "results/rl_precision_followup/videos/longer_original_seed2.jpg",
+      "file_sha256": "cbcd4c50012df53d8d96315b0289ece76caade1b5ec2b9dc2527b98ae0e99109",
+      "poster_sha256": "1fc0ac9bc767b82609d2b02c38eb84e1c6dcd8f7bd406444f5bcd4b866be8664",
+      "source": {
+        "checkpoint": "results/rl_precision_followup/longer_original_seed2/sac.zip",
+        "checkpoint_sha256": "f6529e7b137e54837021f4fcf2a7796402047f257d1bb9290c0c7ef41f7d5d06",
+        "trace": "results/rl_precision_followup/paired/longer_original_seed2_003.npz",
+        "trace_sha256": "7b779c90203568e405b8c313cd18fbb93fb14dc6ae4473b1d5721041394a8bd2"
+      },
+      "suite": "paired",
+      "evaluation_seed": 2027,
+      "model_seed": 2,
+      "trial": 3,
+      "task": 4,
+      "success": false,
+      "final_distance_mm": 11.167642178031326,
+      "simulation_duration_s": 12.0,
+      "final_image_display_seconds": 2,
+      "frame_rate": 10,
+      "resolution": [
+        960,
+        640
+      ],
+      "verification": {
+        "all_states_actions_joints_and_phases_bit_identical": true,
+        "max_state_difference": 0.0
+      }
+    },
+    {
+      "id": "longer_original_seed2_finish",
+      "run": "longer_original_seed2_finish",
+      "title": "Longer RL with the finisher",
+      "description": "The same 60k policy handles the approach. The unchanged hand-coded finisher takes over, releases contact and passes the one-second containment check.",
+      "file": "results/rl_precision_followup/videos/longer_original_seed2_finish.mp4",
+      "poster": "results/rl_precision_followup/videos/longer_original_seed2_finish.jpg",
+      "file_sha256": "2f2333723d15f538bd92d3bc508de4e1074cc9320b85ee0b30004648399901f7",
+      "poster_sha256": "db9d41bec62068184823d15be3c033d2a37a8f4c9dc9b6959c5111707b0d359e",
+      "source": {
+        "checkpoint": "results/rl_precision_followup/longer_original_seed2/sac.zip",
+        "checkpoint_sha256": "f6529e7b137e54837021f4fcf2a7796402047f257d1bb9290c0c7ef41f7d5d06",
+        "trace": "results/rl_precision_followup/paired/longer_original_seed2_finish_003.npz",
+        "trace_sha256": "0ec8773afdd44d1acc14a510f7d9a7a8c33f15fd157fd4173a2055630d01d6ef"
+      },
+      "suite": "paired",
+      "evaluation_seed": 2027,
+      "model_seed": 2,
+      "trial": 3,
+      "task": 4,
+      "success": true,
+      "final_distance_mm": 2.7670585040705014,
+      "simulation_duration_s": 7.1000000000000005,
+      "final_image_display_seconds": 2,
+      "frame_rate": 10,
+      "resolution": [
+        960,
+        640
+      ],
+      "verification": {
+        "all_states_actions_joints_and_phases_bit_identical": true,
+        "max_state_difference": 0.0
+      }
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { evidenceViewerUrl } from "./evidenceRoutes.mjs";
 import "./research.css";
 
 const FALLBACK_CLIPS = [
@@ -82,7 +83,12 @@ function Arrow({ diagonal = false }) {
 
 function EvidenceLink({ href, children }) {
   return (
-    <a className="rp-text-link" href={href} target="_blank" rel="noreferrer">
+    <a
+      className="rp-text-link"
+      href={evidenceViewerUrl(href)}
+      target="_blank"
+      rel="noreferrer"
+    >
       {children}
       <Arrow diagonal />
     </a>
@@ -269,6 +275,171 @@ function RecordingStrip({ manifest }) {
   );
 }
 
+function NativeMujocoGallery({ manifest }) {
+  const videos = manifest?.evidence?.videos || [];
+  const [selectedUrl, setSelectedUrl] = useState(null);
+  const selected =
+    videos.find((video) => video.url === selectedUrl) ||
+    videos.find(
+      (video) =>
+        video.run === "longer_original_seed2" && video.mode === "finish",
+    ) ||
+    videos.find(
+      (video) => video.strategy === "contact" && video.mode === "policy",
+    ) ||
+    videos[0];
+  if (!selected) return null;
+  const runId = selected.run
+    ? selected.run + (selected.mode === "finish" ? "_finish" : "")
+    : selected.url
+        .split("/")
+        .pop()
+        .replace(/\.mp4$/, "");
+  const result = manifest?.runs?.[runId]?.trials?.[selected.trial];
+  const modeLabel =
+    selected.mode === "finish" ? "Policy + precision feedback" : "Policy alone";
+  const strategies = {
+    direct: "Direct transfer",
+    contact: "Contact adapter",
+    postRL: "Adapter + RL",
+  };
+  return (
+    <section
+      className="rp-native"
+      id="mujoco"
+      aria-labelledby="rp-native-title"
+    >
+      <div className="rp-native-heading">
+        <div>
+          <span className="rp-eyebrow">Inside the simulator / MuJoCo</span>
+          <h2 id="rp-native-title">Watch the original physics render.</h2>
+        </div>
+        <p>
+          MuJoCo calculates the motion and contacts. The interactive Three.js
+          view above replays those saved positions and joint angles with a new
+          visual design. These videos show the same saved trials in MuJoCo's own
+          renderer.
+        </p>
+      </div>
+      <div className="rp-native-stage">
+        <div className="rp-native-player">
+          <div className="rp-native-player-head">
+            <span>Native MuJoCo recording</span>
+            <span>
+              Model seed {selected.seed} · Task{" "}
+              {String(selected.trial + 1).padStart(2, "0")}
+            </span>
+          </div>
+          <video
+            key={selected.url}
+            controls
+            playsInline
+            preload="metadata"
+            poster={selected.poster}
+            src={selected.url}
+            aria-label={`${selected.label}, model seed ${selected.seed}, task ${selected.trial + 1}`}
+          />
+        </div>
+        <div className="rp-native-context">
+          <span className="rp-eyebrow">Selected recording</span>
+          <h3>
+            {selected.run
+              ? selected.label
+              : strategies[selected.strategy] || selected.label}
+          </h3>
+          <span className="rp-native-mode">{modeLabel}</span>
+          <p>
+            {selected.mode === "finish"
+              ? "The learned policy begins the push. A hand-coded feedback controller then centres the object, moves the tip away and checks a one-second hold."
+              : "The learned policy controls the entire push. Its result shows what the network can do without the final precision controller."}
+          </p>
+          {result && (
+            <div
+              className={`rp-native-result ${result.success ? "success" : "incomplete"}`}
+            >
+              <span>
+                {result.success
+                  ? "This case completed"
+                  : "This case did not complete"}
+              </span>
+              <strong>
+                {result.final_distance_mm.toFixed(2)}
+                <small> mm</small>
+              </strong>
+              <p>
+                Final object-centre distance from the target centre. Full
+                containment requires 8 mm or less and a one-second hold.
+              </p>
+            </div>
+          )}
+          <p className="rp-native-reference">
+            {selected.run ? (
+              <>
+                This is{" "}
+                <strong>
+                  model seed {selected.seed}, task{" "}
+                  {String(selected.trial + 1).padStart(2, "0")}
+                </strong>
+                , the earlier RL failure used to illustrate the longer-training
+                comparison. All other outcomes remain in the trial explorer.
+              </>
+            ) : (
+              <>
+                The six original reference recordings use{" "}
+                <strong>model seed 1, task 01</strong>. The three
+                longer-training clips compare seed 2, task 04. Each video keeps
+                its own model and task when you change the lab above.
+              </>
+            )}
+          </p>
+          <a className="rp-text-link" href={selected.url} download>
+            Download this recording <Arrow diagonal />
+          </a>
+        </div>
+      </div>
+      <div
+        className="rp-native-choices"
+        aria-label="Choose a native MuJoCo recording"
+      >
+        {[...videos]
+          .sort(
+            (a, b) => Number(a.mode === "finish") - Number(b.mode === "finish"),
+          )
+          .map((video) => (
+            <button
+              key={video.url}
+              className={selected.url === video.url ? "selected" : ""}
+              onClick={() => setSelectedUrl(video.url)}
+              aria-pressed={selected.url === video.url}
+              aria-label={`Watch ${video.label}, seed ${video.seed}, task ${video.trial + 1}`}
+            >
+              <div className="rp-native-thumbnail">
+                <img
+                  src={video.poster}
+                  alt="MuJoCo tabletop with articulated arm, red object and green goal"
+                  loading="lazy"
+                />
+                <span className="rp-native-play">▶</span>
+              </div>
+              <div>
+                <strong>
+                  {video.run
+                    ? video.label
+                    : strategies[video.strategy] || video.label}
+                </strong>
+                <span>
+                  {video.mode === "finish"
+                    ? "+ Precision feedback"
+                    : "Policy alone"}
+                </span>
+              </div>
+            </button>
+          ))}
+      </div>
+    </section>
+  );
+}
+
 function RobotSchematic() {
   return (
     <svg
@@ -441,12 +612,20 @@ function TransferPanel({ manifest }) {
   );
 }
 
-function SeedBars() {
+function SeedBars({ manifest }) {
   const rows = [
-    { label: "SAC from scratch", values: [13, 9, 20], className: "scratch" },
+    {
+      label: "SAC from scratch",
+      values: [0, 1, 2].map(
+        (seed) => manifest?.rl?.[`sac_scratch_seed${seed}`]?.successes,
+      ),
+      className: "scratch",
+    },
     {
       label: "Demonstrations + SAC",
-      values: [20, 20, 20],
+      values: [0, 1, 2].map(
+        (seed) => manifest?.rl?.[`sac_demo_initialized_seed${seed}`]?.successes,
+      ),
       className: "personal",
     },
   ];
@@ -468,10 +647,10 @@ function SeedBars() {
           {row.values.map((value, i) => (
             <div className="rp-seed-cell" key={i}>
               <span className="rp-seed-bar">
-                <i style={{ width: `${(value / 20) * 100}%` }} />
+                <i style={{ width: `${((value || 0) / 20) * 100}%` }} />
               </span>
               <span>
-                {value}
+                {value ?? "?"}
                 <small> / 20</small>
               </span>
             </div>
@@ -483,6 +662,74 @@ function SeedBars() {
         Classical feedback and model predictive control (MPC) also solve 20/20
         under this original criterion.
       </div>
+    </div>
+  );
+}
+
+function TargetSeedComparison({ manifest }) {
+  const strategies = [
+    { prefix: "source_direct", label: "Direct transfer" },
+    { prefix: "source_contact", label: "Contact adapter" },
+    { prefix: "posttrained", label: "Adapter + RL" },
+  ];
+  const seeds = manifest?.seeds || [0, 1, 2];
+  const score = (prefix, seed, finish) => {
+    const result =
+      manifest?.runs?.[`${prefix}_seed${seed}${finish ? "_finish" : ""}`]
+        ?.summary;
+    return result ? `${result.successes}/${result.episodes}` : "Unavailable";
+  };
+  return (
+    <div className="rp-target-seeds">
+      <div className="rp-target-seeds-heading">
+        <div>
+          <span className="rp-eyebrow">
+            Compact arm / strict completion study
+          </span>
+          <h4>One model can succeed where another stops short.</h4>
+        </div>
+        <p>
+          A seed identifies an independently trained model, with different
+          random initialisation and training samples. Each model attempts the
+          same 20 task setups. A single replay is one case; these scores cover
+          the whole suite.
+        </p>
+      </div>
+      <div className="rp-target-seed-grid">
+        {seeds.map((seed) => (
+          <div className="rp-target-seed-card" key={seed}>
+            <span className="rp-eyebrow">Model seed {seed}</span>
+            <div className="rp-target-score-head">
+              <span>Strategy</span>
+              <span>
+                Policy
+                <br />
+                alone
+              </span>
+              <span>
+                + Precision
+                <br />
+                feedback
+              </span>
+            </div>
+            {strategies.map(({ prefix, label }) => (
+              <div className="rp-target-score" key={prefix}>
+                <span>{label}</span>
+                <strong>{score(prefix, seed, false)}</strong>
+                <strong>{score(prefix, seed, true)}</strong>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+      <p className="rp-target-seed-note">
+        Counts are completed tasks, not training steps. The policy-only columns
+        measure learned control with full containment and a one-second hold. The
+        feedback columns add a hand-coded finishing stage and tip release. RL
+        after the adapter does not consistently improve this suite, and the seed
+        2 feedback run still contains a failure. The same 20 cases are reused
+        across seeds; these are not 60 distinct tasks.
+      </p>
     </div>
   );
 }
@@ -513,8 +760,10 @@ function LearningPanel({ manifest }) {
         <p>
           A separate experiment adds 20,000 reinforcement-learning steps on the
           compact arm after applying the adapter. The strict completion study
-          above evaluates these saved policies with and without the explicit
-          precision controller; it does not train them again.
+          evaluates these original saved policies with and without the explicit
+          precision controller. The later 60k comparison adds 40,000 decisions
+          to each original model under two training objectives; its results are
+          shown separately above.
         </p>
         <EvidenceLink
           href={evidenceUrl(
@@ -528,7 +777,7 @@ function LearningPanel({ manifest }) {
         </EvidenceLink>
       </div>
       <div className="rp-study-figure">
-        <SeedBars />
+        <SeedBars manifest={manifest} />
         <div className="rp-negative-result">
           <span className="rp-eyebrow">
             Additional experiment / personal post-training
@@ -547,6 +796,7 @@ function LearningPanel({ manifest }) {
           </span>
         </div>
       </div>
+      <TargetSeedComparison manifest={manifest} />
     </div>
   );
 }
@@ -865,7 +1115,8 @@ function DeploymentPanel({ manifest }) {
 function Reproducibility({ manifest }) {
   const [copied, setCopied] = useState(false);
   const command =
-    "python -m pip install -e '.[dev,analysis,rl]'\npython -m pytest -q\npython scripts/audit_submission.py";
+    "python -m pip install -e '.[dev,analysis,rl]'\npython -m pytest -q\npython scripts/audit_submission.py" +
+    (manifest.rlFollowup ? "\npython scripts/audit_rl_followup.py" : "");
   const fallback = [
     {
       label: "Two-minute reviewer guide",
@@ -889,7 +1140,7 @@ function Reproducibility({ manifest }) {
     },
     {
       label: "Every completion result",
-      url: "/evidence/results/precision_finish/evaluation.json",
+      url: "/evidence/results/precision_evaluation.json",
       format: "JSON",
       description: "Outcomes for all 520 saved trials, including failures.",
     },
@@ -947,7 +1198,7 @@ function Reproducibility({ manifest }) {
         {files.map((file) => (
           <a
             className="rp-evidence-file"
-            href={file.url}
+            href={evidenceViewerUrl(file.url)}
             key={file.url}
             target="_blank"
             rel="noreferrer"
@@ -1024,6 +1275,7 @@ function ResearchPanels({ manifest }) {
   const Panel = panel[activeTab];
   return (
     <div className="rp-root">
+      <NativeMujocoGallery manifest={manifest} />
       <section className="rp-research" id="research">
         <div className="rp-section-heading">
           <div>

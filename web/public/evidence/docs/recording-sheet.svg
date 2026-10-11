@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="297mm" height="210mm" viewBox="0 0 297 210">
+<rect width="297" height="210" fill="white"/>
+<g stroke="#333" fill="none" stroke-width="0.7">
+<path d="M6 16V6H16M281 6H291V16M291 194V204H281M16 204H6V194"/>
+<circle cx="240" cy="105" r="20" stroke="#47916b" stroke-width="1"/>
+<circle cx="75" cy="80" r="12" stroke-dasharray="2 3"/>
+<circle cx="75" cy="130" r="12" stroke-dasharray="2 3"/>
+<path d="M115 105H180M176 101L180 105L176 109"/>
+</g>
+<g font-family="sans-serif" fill="#444" text-anchor="middle">
+<text x="148.5" y="25" font-size="7">PushBridge · recording workspace</text>
+<text x="148.5" y="38" font-size="4">A4 landscape · print at 100% · calibrate the physical paper corners</text>
+<text x="240" y="108" font-size="4">TARGET</text>
+<text x="75" y="160" font-size="4">Vary start positions</text>
+<text x="148.5" y="188" font-size="4">Red object · blue fingertip marker · fixed overhead camera</text>
+</g></svg>

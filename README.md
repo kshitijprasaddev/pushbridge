@@ -2,7 +2,7 @@
 
 **From five home videos to contact-aware robot control in MuJoCo.**
 
-[Source repository](https://github.com/kshitijprasaddev/pushbridge) · [Vercel setup](docs/WEB_APP.md#deploy-to-vercel)
+[Live research app](https://pushbridge.vercel.app/) · [Source repository](https://github.com/kshitijprasaddev/pushbridge) · [Reviewer guide](https://pushbridge.vercel.app/?evidence=%2Fevidence%2Fdocs%2FREVIEWER_GUIDE.md)
 
 A finger pushes a red cap into a drawn circle. This project extracts those motions, uses them to initialize a learned policy, and transfers the policy to a robot with different joints, tool geometry and object dynamics. It also learns object-motion predictions and exports a faster actor.
 
@@ -22,6 +22,8 @@ npx --yes pnpm@11.25.0 dev
 ```
 
 Select a transfer strategy, switch between policy alone and policy plus feedback, then replay or scrub a task. The 3D arm follows recorded joint angles; the object follows recorded positions. Three.js renders the scene, while MuJoCo produced the underlying physics traces. The browser does not run a new policy rollout.
+
+The [MuJoCo gallery](https://pushbridge.vercel.app/#mujoco) shows recordings from the original physics renderer. The evidence library opens documents as articles and trial JSON as a searchable table, with the original files available to download. A training seed identifies a model; a task identifies one of the shared starting conditions. Scores count 20 tasks, while each replay shows one task.
 
 For a production build, run `npx --yes pnpm@11.25.0 build` and `npx --yes pnpm@11.25.0 preview` from `web/`. The earlier [offline report](index.html) and all experiment reports remain in the repository for direct inspection.
 
@@ -56,6 +58,20 @@ Cells list training seeds 0 / 1 / 2 on the same 20 paired cases. They are not 60
 
 **Control attribution matters.** Feedback alone solves 18/20 under the same 120-decision budget. Some adapted policies already finish when allowed to continue; the finisher improves precision rather than creating every success. On 20 fresh tasks with seed 1 checkpoints, all three hybrids solve 20/20; policy-only direct transfer remains 0/20. [Protocol and all individual outcomes](results/precision_finish/evaluation.json) · [Precision methodology](docs/PRECISION.md)
 
+## Does longer RL training finish the task?
+
+The original compact-arm RL policy was trained to stop within **18 mm**, while strict completion requires **8 mm for a full second**. Two controlled continuations give every original seed another 40,000 SAC decisions, reaching 60,000 target decisions: one keeps the original objective; one tightens the training goal to 8 mm and checks every hold tick. They use the final fixed-budget checkpoints, with no selection on test performance.
+
+| Policy alone, strict completion | Original paired tasks, seeds 0 / 1 / 2 | New fresh tasks, seeds 0 / 1 / 2 |
+| --- | --- | --- |
+| Original 20k, 18 mm training goal | 6/20 · 19/20 · 16/20 | 9/20 · 19/20 · 16/20 |
+| Longer 60k, same training goal | 18/20 · 18/20 · 17/20 | 19/20 · 19/20 · 19/20 |
+| Strict 60k, 8 mm + hold training goal | 14/20 · 19/20 · 17/20 | 19/20 · 18/20 · 18/20 |
+
+More training improves the weakest seed substantially, but the learned policy still has failures. The stricter objective is not uniformly better. Both new branches with the unchanged precision controller complete **20/20 for every seed on both suites**; that final control contribution remains explicit. The old missed seed 2 Task 04 moves from 111.6 mm error to 11.2 mm under the longer policy, then to 2.8 mm with feedback. The policy alone still misses that finish.
+
+The follow-up adds 240,000 training decisions and 760 evaluated traces. All 120 paired original-baseline traces remain bit-identical. Original results and checkpoints stay available. [Protocol, all results and reproduction](results/rl_precision_followup/README.md) · [Follow-up audit](results/rl_precision_followup/audit.json)
+
 ## Other findings
 
 | Experiment | Result and practical limit |
@@ -76,6 +92,7 @@ source .venv/bin/activate
 python -m pip install -e '.[dev,analysis,rl]'
 python -m pytest -q
 python scripts/audit_submission.py
+python scripts/audit_rl_followup.py
 python scripts/precision_experiment.py --out results/precision_rerun
 ```
 

@@ -30,4 +30,5 @@ results/*
 !results/policy_speed/
 !results/personal_posttraining/
 !results/precision_finish/
+!results/rl_precision_followup/
 !results/submission_audit.json

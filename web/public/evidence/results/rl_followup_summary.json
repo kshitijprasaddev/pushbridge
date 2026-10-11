@@ -1,0 +1,656 @@
+{
+  "question": "Is extra SAC training enough, or must the terminal objective match full containment?",
+  "training_decisions_added": 240000,
+  "training_control_steps_added": 292430,
+  "baseline_target_decisions": 20000,
+  "followup_target_decisions": 60000,
+  "seed_order": [
+    0,
+    1,
+    2
+  ],
+  "suites": {
+    "paired": {
+      "seed": 2027,
+      "cases": 20,
+      "variants": {
+        "original_20k": {
+          "label": "Original 20k target SAC",
+          "policy_only_successes_by_seed": [
+            6,
+            19,
+            16
+          ],
+          "finisher_successes_by_seed": [
+            20,
+            20,
+            19
+          ],
+          "policy_only_mean_final_distance_mm_by_seed": [
+            8.677896493201883,
+            6.269924743917313,
+            12.759618313935217
+          ],
+          "changes_vs_original_per_model_seed": [
+            {
+              "model_seed": 0,
+              "gained_success_cases": [],
+              "lost_success_cases": []
+            },
+            {
+              "model_seed": 1,
+              "gained_success_cases": [],
+              "lost_success_cases": []
+            },
+            {
+              "model_seed": 2,
+              "gained_success_cases": [],
+              "lost_success_cases": []
+            }
+          ],
+          "policy_only_failures": [
+            {
+              "model_seed": 0,
+              "trial": 2,
+              "final_distance_mm": 9.489977481787811
+            },
+            {
+              "model_seed": 0,
+              "trial": 4,
+              "final_distance_mm": 12.49945810510962
+            },
+            {
+              "model_seed": 0,
+              "trial": 5,
+              "final_distance_mm": 9.19787099331468
+            },
+            {
+              "model_seed": 0,
+              "trial": 6,
+              "final_distance_mm": 11.699903461405412
+            },
+            {
+              "model_seed": 0,
+              "trial": 7,
+              "final_distance_mm": 8.137177815221182
+            },
+            {
+              "model_seed": 0,
+              "trial": 8,
+              "final_distance_mm": 8.599037484749703
+            },
+            {
+              "model_seed": 0,
+              "trial": 9,
+              "final_distance_mm": 9.126825189776293
+            },
+            {
+              "model_seed": 0,
+              "trial": 10,
+              "final_distance_mm": 8.35853301094333
+            },
+            {
+              "model_seed": 0,
+              "trial": 11,
+              "final_distance_mm": 9.396813921798092
+            },
+            {
+              "model_seed": 0,
+              "trial": 12,
+              "final_distance_mm": 9.030021020624291
+            },
+            {
+              "model_seed": 0,
+              "trial": 15,
+              "final_distance_mm": 12.231645310715484
+            },
+            {
+              "model_seed": 0,
+              "trial": 16,
+              "final_distance_mm": 9.662711862942205
+            },
+            {
+              "model_seed": 0,
+              "trial": 18,
+              "final_distance_mm": 8.899594684656368
+            },
+            {
+              "model_seed": 0,
+              "trial": 19,
+              "final_distance_mm": 11.782863356595735
+            },
+            {
+              "model_seed": 1,
+              "trial": 1,
+              "final_distance_mm": 10.437835657786422
+            },
+            {
+              "model_seed": 2,
+              "trial": 3,
+              "final_distance_mm": 111.58353765057865
+            },
+            {
+              "model_seed": 2,
+              "trial": 4,
+              "final_distance_mm": 11.118294958389143
+            },
+            {
+              "model_seed": 2,
+              "trial": 15,
+              "final_distance_mm": 13.701892948359083
+            },
+            {
+              "model_seed": 2,
+              "trial": 19,
+              "final_distance_mm": 13.808071880901903
+            }
+          ]
+        },
+        "longer_original": {
+          "label": "60k target SAC, original objective",
+          "policy_only_successes_by_seed": [
+            18,
+            18,
+            17
+          ],
+          "finisher_successes_by_seed": [
+            20,
+            20,
+            20
+          ],
+          "policy_only_mean_final_distance_mm_by_seed": [
+            7.272905045911585,
+            7.387215501042938,
+            7.293871893020032
+          ],
+          "changes_vs_original_per_model_seed": [
+            {
+              "model_seed": 0,
+              "gained_success_cases": [
+                2,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                15,
+                16,
+                18,
+                19
+              ],
+              "lost_success_cases": [
+                1
+              ]
+            },
+            {
+              "model_seed": 1,
+              "gained_success_cases": [],
+              "lost_success_cases": [
+                15
+              ]
+            },
+            {
+              "model_seed": 2,
+              "gained_success_cases": [
+                4,
+                15
+              ],
+              "lost_success_cases": [
+                1
+              ]
+            }
+          ],
+          "policy_only_failures": [
+            {
+              "model_seed": 0,
+              "trial": 1,
+              "final_distance_mm": 16.951494929338843
+            },
+            {
+              "model_seed": 0,
+              "trial": 6,
+              "final_distance_mm": 10.748584727406467
+            },
+            {
+              "model_seed": 1,
+              "trial": 1,
+              "final_distance_mm": 21.152749628081892
+            },
+            {
+              "model_seed": 1,
+              "trial": 15,
+              "final_distance_mm": 14.003132448710918
+            },
+            {
+              "model_seed": 2,
+              "trial": 1,
+              "final_distance_mm": 16.363715132812114
+            },
+            {
+              "model_seed": 2,
+              "trial": 3,
+              "final_distance_mm": 11.167642178031326
+            },
+            {
+              "model_seed": 2,
+              "trial": 19,
+              "final_distance_mm": 16.880710002849554
+            }
+          ]
+        },
+        "strict_objective": {
+          "label": "60k target SAC, strict objective",
+          "policy_only_successes_by_seed": [
+            14,
+            19,
+            17
+          ],
+          "finisher_successes_by_seed": [
+            20,
+            20,
+            20
+          ],
+          "policy_only_mean_final_distance_mm_by_seed": [
+            7.536158912222426,
+            7.187324472694885,
+            8.084552087793659
+          ],
+          "changes_vs_original_per_model_seed": [
+            {
+              "model_seed": 0,
+              "gained_success_cases": [
+                2,
+                4,
+                5,
+                6,
+                7,
+                10,
+                11,
+                15,
+                16,
+                19
+              ],
+              "lost_success_cases": [
+                14,
+                17
+              ]
+            },
+            {
+              "model_seed": 1,
+              "gained_success_cases": [],
+              "lost_success_cases": []
+            },
+            {
+              "model_seed": 2,
+              "gained_success_cases": [
+                4,
+                15
+              ],
+              "lost_success_cases": [
+                1
+              ]
+            }
+          ],
+          "policy_only_failures": [
+            {
+              "model_seed": 0,
+              "trial": 8,
+              "final_distance_mm": 8.801402966839602
+            },
+            {
+              "model_seed": 0,
+              "trial": 9,
+              "final_distance_mm": 8.600770060332188
+            },
+            {
+              "model_seed": 0,
+              "trial": 12,
+              "final_distance_mm": 8.836728955935284
+            },
+            {
+              "model_seed": 0,
+              "trial": 14,
+              "final_distance_mm": 9.787572177889619
+            },
+            {
+              "model_seed": 0,
+              "trial": 17,
+              "final_distance_mm": 8.483863283423867
+            },
+            {
+              "model_seed": 0,
+              "trial": 18,
+              "final_distance_mm": 8.303755515293648
+            },
+            {
+              "model_seed": 1,
+              "trial": 1,
+              "final_distance_mm": 18.712114857210636
+            },
+            {
+              "model_seed": 2,
+              "trial": 1,
+              "final_distance_mm": 25.5661231562168
+            },
+            {
+              "model_seed": 2,
+              "trial": 3,
+              "final_distance_mm": 19.262141063110803
+            },
+            {
+              "model_seed": 2,
+              "trial": 19,
+              "final_distance_mm": 13.894900840127335
+            }
+          ]
+        }
+      },
+      "feedback_only": {
+        "successes": 18,
+        "episodes": 20,
+        "mean_final_distance_mm": 2.7163252053262434
+      }
+    },
+    "fresh": {
+      "seed": 11939,
+      "cases": 20,
+      "variants": {
+        "original_20k": {
+          "label": "Original 20k target SAC",
+          "policy_only_successes_by_seed": [
+            9,
+            19,
+            16
+          ],
+          "finisher_successes_by_seed": [
+            20,
+            20,
+            20
+          ],
+          "policy_only_mean_final_distance_mm_by_seed": [
+            8.572379264268134,
+            6.60638203134351,
+            7.875460597923494
+          ],
+          "changes_vs_original_per_model_seed": [
+            {
+              "model_seed": 0,
+              "gained_success_cases": [],
+              "lost_success_cases": []
+            },
+            {
+              "model_seed": 1,
+              "gained_success_cases": [],
+              "lost_success_cases": []
+            },
+            {
+              "model_seed": 2,
+              "gained_success_cases": [],
+              "lost_success_cases": []
+            }
+          ],
+          "policy_only_failures": [
+            {
+              "model_seed": 0,
+              "trial": 0,
+              "final_distance_mm": 9.339216164015902
+            },
+            {
+              "model_seed": 0,
+              "trial": 2,
+              "final_distance_mm": 11.392999384660813
+            },
+            {
+              "model_seed": 0,
+              "trial": 5,
+              "final_distance_mm": 9.007972495530923
+            },
+            {
+              "model_seed": 0,
+              "trial": 6,
+              "final_distance_mm": 8.84914494631145
+            },
+            {
+              "model_seed": 0,
+              "trial": 7,
+              "final_distance_mm": 12.533936990857649
+            },
+            {
+              "model_seed": 0,
+              "trial": 11,
+              "final_distance_mm": 11.288209038188409
+            },
+            {
+              "model_seed": 0,
+              "trial": 14,
+              "final_distance_mm": 9.168668471980714
+            },
+            {
+              "model_seed": 0,
+              "trial": 15,
+              "final_distance_mm": 8.934590756332392
+            },
+            {
+              "model_seed": 0,
+              "trial": 16,
+              "final_distance_mm": 9.340891617004248
+            },
+            {
+              "model_seed": 0,
+              "trial": 17,
+              "final_distance_mm": 11.405999695888072
+            },
+            {
+              "model_seed": 0,
+              "trial": 18,
+              "final_distance_mm": 9.02773087003112
+            },
+            {
+              "model_seed": 1,
+              "trial": 13,
+              "final_distance_mm": 11.183315966174932
+            },
+            {
+              "model_seed": 2,
+              "trial": 7,
+              "final_distance_mm": 9.835004583785265
+            },
+            {
+              "model_seed": 2,
+              "trial": 11,
+              "final_distance_mm": 13.748837409882253
+            },
+            {
+              "model_seed": 2,
+              "trial": 13,
+              "final_distance_mm": 13.526001693779412
+            },
+            {
+              "model_seed": 2,
+              "trial": 17,
+              "final_distance_mm": 13.757997247986733
+            }
+          ]
+        },
+        "longer_original": {
+          "label": "60k target SAC, original objective",
+          "policy_only_successes_by_seed": [
+            19,
+            19,
+            19
+          ],
+          "finisher_successes_by_seed": [
+            20,
+            20,
+            20
+          ],
+          "policy_only_mean_final_distance_mm_by_seed": [
+            7.093291852792644,
+            6.942721068103291,
+            6.5626183732947165
+          ],
+          "changes_vs_original_per_model_seed": [
+            {
+              "model_seed": 0,
+              "gained_success_cases": [
+                0,
+                2,
+                5,
+                6,
+                7,
+                11,
+                14,
+                15,
+                16,
+                17,
+                18
+              ],
+              "lost_success_cases": [
+                13
+              ]
+            },
+            {
+              "model_seed": 1,
+              "gained_success_cases": [
+                13
+              ],
+              "lost_success_cases": [
+                7
+              ]
+            },
+            {
+              "model_seed": 2,
+              "gained_success_cases": [
+                7,
+                11,
+                17
+              ],
+              "lost_success_cases": []
+            }
+          ],
+          "policy_only_failures": [
+            {
+              "model_seed": 0,
+              "trial": 13,
+              "final_distance_mm": 14.796954662446673
+            },
+            {
+              "model_seed": 1,
+              "trial": 7,
+              "final_distance_mm": 14.131507871276483
+            },
+            {
+              "model_seed": 2,
+              "trial": 13,
+              "final_distance_mm": 11.796835541251092
+            }
+          ]
+        },
+        "strict_objective": {
+          "label": "60k target SAC, strict objective",
+          "policy_only_successes_by_seed": [
+            19,
+            18,
+            18
+          ],
+          "finisher_successes_by_seed": [
+            20,
+            20,
+            20
+          ],
+          "policy_only_mean_final_distance_mm_by_seed": [
+            7.5552805964299194,
+            6.685814958327661,
+            6.452288480415348
+          ],
+          "changes_vs_original_per_model_seed": [
+            {
+              "model_seed": 0,
+              "gained_success_cases": [
+                0,
+                2,
+                5,
+                6,
+                7,
+                11,
+                14,
+                15,
+                16,
+                17,
+                18
+              ],
+              "lost_success_cases": [
+                13
+              ]
+            },
+            {
+              "model_seed": 1,
+              "gained_success_cases": [],
+              "lost_success_cases": [
+                5
+              ]
+            },
+            {
+              "model_seed": 2,
+              "gained_success_cases": [
+                7,
+                11,
+                13,
+                17
+              ],
+              "lost_success_cases": [
+                5,
+                9
+              ]
+            }
+          ],
+          "policy_only_failures": [
+            {
+              "model_seed": 0,
+              "trial": 13,
+              "final_distance_mm": 10.160629727577387
+            },
+            {
+              "model_seed": 1,
+              "trial": 5,
+              "final_distance_mm": 8.940470856868552
+            },
+            {
+              "model_seed": 1,
+              "trial": 13,
+              "final_distance_mm": 14.180224632960943
+            },
+            {
+              "model_seed": 2,
+              "trial": 5,
+              "final_distance_mm": 9.900588366621008
+            },
+            {
+              "model_seed": 2,
+              "trial": 9,
+              "final_distance_mm": 8.758527406651334
+            }
+          ]
+        }
+      },
+      "feedback_only": {
+        "successes": 19,
+        "episodes": 20,
+        "mean_final_distance_mm": 2.7738840003738843
+      }
+    }
+  },
+  "interpretation": [
+    "The old training objective accepted an 18 mm centre error. Full containment requires at most 8 mm.",
+    "Longer-original isolates extra training from a change to the terminal objective.",
+    "Strict-objective has the same added budget and changes only the terminal success predicate.",
+    "All branches load the original frozen target checkpoint, then start a new replay buffer.",
+    "Policy-only still uses the benchmark zero-action hold after entering the containment region.",
+    "The finisher uses engineered state feedback and release actions, so its successes are not learned completion alone.",
+    "The paired suite was previously inspected; fresh seed 11939 was declared before these runs.",
+    "Training seeds share the same 20 task cases. Sixty model-case runs are not 60 independent tasks."
+  ]
+}
