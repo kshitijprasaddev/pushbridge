@@ -17,6 +17,21 @@ from pushbridge.sim import MAX_ACTION, ORIGIN
 
 
 ROOT = Path(__file__).resolve().parents[1]
+RESET_REGENERATION_TOLERANCE_M = 1e-14
+
+
+def verify_declared_reset(row, trial):
+    """Allow libm rounding only for generated resets, never for saved evidence."""
+    assert row['friction'] == trial['friction']
+    maximum_error = 0.
+    for recorded, generated in [('goal', 'goal'), ('initial_puck', 'puck'), ('initial_tool', 'tool')]:
+        actual, expected = np.asarray(row[recorded]), np.asarray(trial[generated])
+        assert actual.shape == expected.shape == (2,)
+        assert np.isfinite(actual).all() and np.isfinite(expected).all()
+        np.testing.assert_allclose(actual, expected, rtol=0,
+                                   atol=RESET_REGENERATION_TOLERANCE_M, equal_nan=False)
+        maximum_error = max(maximum_error, float(np.max(np.abs(actual - expected))))
+    return maximum_error
 
 
 def audit(out):
@@ -38,6 +53,7 @@ def audit(out):
         assert report['parent_sha256'] == protocol['parent_checkpoints'][str(report['seed'])]['sha256']
         weights[model_name] = {'sha256': sha256(path), 'bytes': path.stat().st_size}
     traces, successes, baseline_bit_identical, maximum_fk_mm = 0, 0, 0, 0.
+    maximum_reset_regeneration_error_m = 0.
     for suite, suite_data in evaluation['suites'].items():
         trials = make_trials(20, suite_data['seed'])
         starts = {}
@@ -46,15 +62,13 @@ def audit(out):
             assert result['episodes'] == len(result['runs']) == 20
             for row in result['runs']:
                 trial = trials[row['trial']]
-                assert row['friction'] == trial['friction']
-                np.testing.assert_array_equal(row['goal'], trial['goal'])
-                np.testing.assert_array_equal(row['initial_puck'], trial['puck'])
-                np.testing.assert_array_equal(row['initial_tool'], trial['tool'])
+                maximum_reset_regeneration_error_m = max(maximum_reset_regeneration_error_m,
+                                                        verify_declared_reset(row, trial))
                 path = out / suite / f'{name}_{row["trial"]:03d}.npz'
                 with np.load(path, allow_pickle=False) as trace:
                     state, action, joint, phase, goal = [trace[key] for key in ('state', 'action', 'joint', 'phase', 'goal')]
                 assert len(state) == len(action) + 1 == len(joint) == len(phase)
-                np.testing.assert_array_equal(goal, trial['goal'])
+                np.testing.assert_array_equal(goal, row['goal'])
                 if row['trial'] not in starts:
                     starts[row['trial']] = state[0]
                 np.testing.assert_array_equal(state[0], starts[row['trial']])
@@ -90,12 +104,15 @@ def audit(out):
               'protocol_sha256': sha256(out / 'protocol.json'), 'trace_count': traces,
               'successful_traces': successes, 'original_baseline_traces_bit_identical': baseline_bit_identical,
               'max_joint_forward_kinematics_residual_mm': maximum_fk_mm,
+              'reset_regeneration_tolerance_m': RESET_REGENERATION_TOLERANCE_M,
+              'max_reset_regeneration_error_m': maximum_reset_regeneration_error_m,
+              'reset_regeneration_note': 'Only regenerating coordinates from declared seeds allows machine arithmetic rounding. Stored goals, paired starting states and original-baseline trace arrays remain exact; file hashes are unchanged.',
               'new_training_decisions_total': training['new_training_decisions_total'],
               'new_training_control_steps_total': training['new_training_control_steps_total'],
               'checkpoints': weights,
               'checks': ['Frozen parent hashes', 'Six final models with 40k added decisions each and 240k total decision accounting',
                          'Trace/action/state/joint shapes and limits', 'Strict containment during every successful hold',
-                         'Exact paired starts, goals and friction match declared trial seeds',
+                         'Declared reset seeds match within 1e-14 metres; stored goals, paired starts and friction remain exact',
                          'Four explicit release steps for hand-coded finisher successes',
                          'All 120 paired original-baseline traces bit-identical to frozen evidence']}
     write_json(out / 'audit.json', report)

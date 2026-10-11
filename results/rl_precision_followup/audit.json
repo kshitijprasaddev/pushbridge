@@ -6,6 +6,9 @@
   "successful_traces": 696,
   "original_baseline_traces_bit_identical": 120,
   "max_joint_forward_kinematics_residual_mm": 0.15528469288384483,
+  "reset_regeneration_tolerance_m": 1e-14,
+  "max_reset_regeneration_error_m": 0.0,
+  "reset_regeneration_note": "Only regenerating coordinates from declared seeds allows machine arithmetic rounding. Stored goals, paired starting states and original-baseline trace arrays remain exact; file hashes are unchanged.",
   "new_training_decisions_total": 240000,
   "new_training_control_steps_total": 292430,
   "checkpoints": {
@@ -39,7 +42,7 @@
     "Six final models with 40k added decisions each and 240k total decision accounting",
     "Trace/action/state/joint shapes and limits",
     "Strict containment during every successful hold",
-    "Exact paired starts, goals and friction match declared trial seeds",
+    "Declared reset seeds match within 1e-14 metres; stored goals, paired starts and friction remain exact",
     "Four explicit release steps for hand-coded finisher successes",
     "All 120 paired original-baseline traces bit-identical to frozen evidence"
   ]
