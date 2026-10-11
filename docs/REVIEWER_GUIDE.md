@@ -1,5 +1,7 @@
 # A two-minute tour of PushBridge
 
+**[Open the live research app → pushbridge.vercel.app](https://pushbridge.vercel.app/)**. No installation or sign-in required. Keep the app open while following this tour.
+
 Can five home recordings of finger pushes help a robot push an object with a different arm and tip? PushBridge tests that question in MuJoCo, then separates what the learned policy accomplishes from what an explicit controller finishes.
 
 The task is to place the red object entirely inside the green circle and keep it there for one second. Start with the 3D replay on the website. To run it locally, follow [the web app guide](WEB_APP.md); the earlier [offline report](../index.html) remains in the repository as a separate evidence view.

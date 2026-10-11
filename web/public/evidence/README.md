@@ -1,16 +1,22 @@
 # PushBridge
 
-**From five home videos to contact-aware robot control in MuJoCo.**
+[![Open the live PushBridge research app: 3D robot replays, MuJoCo footage and policy comparisons](docs/assets/open-demo.svg)](https://pushbridge.vercel.app/)
 
-[Live research app](https://pushbridge.vercel.app/) · [Source repository](https://github.com/kshitijprasaddev/pushbridge) · [Reviewer guide](https://pushbridge.vercel.app/?evidence=%2Fevidence%2Fdocs%2FREVIEWER_GUIDE.md)
+### [Open the live app → pushbridge.vercel.app](https://pushbridge.vercel.app/)
+
+Start here to explore the project. **No installation or sign-in required.** Replay a robot push, compare the learned policy with precision feedback, and watch the native MuJoCo recordings. The app also opens the methods and results in a readable evidence viewer.
+
+[Take the two-minute tour](https://pushbridge.vercel.app/?evidence=%2Fevidence%2Fdocs%2FREVIEWER_GUIDE.md) · [Watch MuJoCo footage](https://pushbridge.vercel.app/#mujoco) · [Read the experiment methods](https://pushbridge.vercel.app/?evidence=%2Fevidence%2Fdocs%2FEXPERIMENTS.md)
+
+**From five home videos to contact-aware robot control in MuJoCo.**
 
 A finger pushes a red cap into a drawn circle. This project extracts those motions, uses them to initialize a learned policy, and transfers the policy to a robot with different joints, tool geometry and object dynamics. It also learns object-motion predictions and exports a faster actor.
 
-**Start with the [3D research app](docs/WEB_APP.md), the [two-minute evidence guide](docs/REVIEWER_GUIDE.md), or the [complete experiment details](docs/EXPERIMENTS.md).** The main app uses React, Vite and Three.js. It builds to a static site that can be deployed on Vercel.
+The interactive app uses React, Vite and Three.js. The source, saved checkpoints and reproduction steps are included below. For local setup and deployment, see [the web app guide](docs/WEB_APP.md).
 
-![Three.js replay of a recorded MuJoCo task](web/preview.jpg)
+[![Open the interactive app: Three.js replay of a recorded MuJoCo task](web/preview.jpg)](https://pushbridge.vercel.app/)
 
-## Open the demo
+## Run locally
 
 The saved results are included. You can build the app without installing Python or retraining the policies. Use Node 24.x. These commands select the pinned package manager, so a global pnpm installation is optional:
 

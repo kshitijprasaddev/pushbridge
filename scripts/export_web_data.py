@@ -363,6 +363,7 @@ def main() -> None:
         ("data/raw/personal_circle/publication_verification.json", "evidence/results/publication_verification.json", "Recording publication verification"),
     )]
     resources = [
+        asset("docs/assets/open-demo.svg", "evidence/media/open_demo.svg", "Open the live research app", format="SVG"),
         asset("web/preview.jpg", "evidence/media/site_preview.jpg", "Research app overview", format="JPEG"),
         asset("docs/recording-sheet.svg", "evidence/docs/recording-sheet.svg", "Printable recording sheet", format="SVG"),
         asset("LICENSE", "evidence/LICENSE.txt", "MIT license", format="Text"),
