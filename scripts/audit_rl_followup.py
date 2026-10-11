@@ -1,9 +1,13 @@
 """Verify the longer-training follow-up without retraining or rendering."""
 import argparse
 import json
+import os
 from pathlib import Path
 
 import numpy as np
+
+# This audit reads traces and evaluates kinematics; it never renders a scene.
+os.environ.setdefault("MUJOCO_GL", "disable")
 
 from pushbridge.data import sha256, write_json
 from pushbridge.embodiment import CONTACT_SCALE, CompactPushEnv
